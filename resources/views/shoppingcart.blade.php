@@ -75,20 +75,21 @@
                             <div>
                                 <i class="fas fa-tags"></i>
                                 <span class="mx-2">Rp. {{number_format($cartData['drink']->price,0,'.','.')}}</span>
+                                <span class="mx-2">X {{$cartData['quantityInCart']}}</span>
                             </div>
                             <div>
-                                <span class="mx-2">X</span>
+                                <span class="mx-2"></span>
                             </div>
                             <div>
-                                <span class="mx-2">{{$cartData['quantityInCart']}}</span>
+                                <span class="mx-2"></span>
                             </div>
                             <div>
-                                <span class="mx-2">Rp. {{number_format($cartData['subTotalPrice'],0,'.','.')}}</span>
+                                <span class="ms-2 mb-lg-3">Rp. {{number_format($cartData['subTotalPrice'],0,'.','.')}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <button class="btn light-gray-background-color text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteCart{{$cartData['drink']->id}}">
+                    <div class="col mt-3">
+                        <button class="mt-lg-4 btn light-gray-background-color text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteCart{{$cartData['drink']->id}}">
                             <i class="fas fa-trash-alt me-2 icon-16"></i>Delete</button>
                     </div>
                 </div>

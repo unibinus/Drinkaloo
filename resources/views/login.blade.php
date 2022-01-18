@@ -33,7 +33,7 @@
         </div>
     </div>
     @endif
-    <div class="row">
+    <div class="row h-100" style="min-height: 100vh">
         <div class="col-3 sub-container-login">
             <h1>Login Page</h1>
             <form method="POST" action="/Login" class="form-container">

@@ -74,7 +74,7 @@
         </div>
         @endforeach
         <div class="d-flex align-items-center">
-            <p class="mt-2 d-flex align-items-center">Total Price <span class="mx-2 fs-4"><strong>Rp. {{number_format($totalPrice,0,'.','.')}}</strong></span></p>
+            <p class="mt-2 ms-2 d-flex align-items-center">Total Price <span class="mx-2 fs-4"><strong>Rp. {{number_format($totalPrice,0,'.','.')}}</strong></span></p>
         </div>
         {{-- @endforeach --}}
     </div>

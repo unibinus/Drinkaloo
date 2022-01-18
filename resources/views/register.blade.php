@@ -36,7 +36,7 @@
         </div>
     </div>
     @endif
-    <div class="row">
+    <div class="row" style="min-height: 100vh">
         <div class="col-3 sub-container-regis">
             <h1>Register Page</h1>
             <form action="{{Route('RegisterForm')}}" method="POST" class="form-container">
@@ -64,9 +64,12 @@
                 <a href="/Login" class="link">Already have an account?</a>
             </form>
          </div>
-         <div class="col ">
-            <img src="{{Storage::url('public/RegisterImage.jpg')}}" height="103%" width="103%" alt="">
-         </div>
+            {{-- <div class="col ">
+                <img src="{{Storage::url('public/RegisterImage.jpg')}}" height="103%" width="103%" alt="">
+            </div> --}}
+         <div class="col m-0 pt-0" >
+            <img src="{{Storage::url('public/RegisterImage.jpg')}}"  height="100%" width="100%" alt="">
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

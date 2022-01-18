@@ -27,7 +27,7 @@
 
                 @foreach($transaction['drinks'] as $drink)
                 
-                <img src="{{Storage::url($drink->picture)}}" class="me-1" height="100px" alt="">
+                <img src="{{Storage::url($drink->picture)}}" class="mx-3" height="150px" width="150px" style="background-color: white; background-size: contain;background-position: center" alt="">
                 @endforeach
                 <p class="mt-2">Total Price: <strong>Rp. {{number_format($transaction['totalPrice'],0,'.','.')}}</strong></p>
             </div>

@@ -23,7 +23,7 @@
             @foreach ( $randomdrinks as $drink)
             <div class="col">
                 <div class="card card-style shadow-lg mb-5">
-                        <img src="{{Storage::url($drink->picture)}}" class="border-rad-10 card-img opacity-50" width="300px" height="250px" alt="eurotruck">
+                        <img src="{{Storage::url($drink->picture)}}" class="border-rad-10 card-img opacity-50" height="400px" style="padding: 0 50px 0 50px ;background-color: white; background-size: contain;background-position: center" alt="eurotruck">
                         <div class="card-img-overlay d-flex align-items-end">
                             <div class="bg-white opacity-75 p-2 border-rad-10">
                                 <p class="bold-900 fs-5 card-title ">{{$drink->name}}</p>
