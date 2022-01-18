@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use App\Models\Drink;
@@ -18,13 +17,12 @@ class VerifyAge
      */
     public function handle(Request $request, Closure $next)
     {
-        $g = new Drink();
-        $drink = $g->where('id','LIKE',$request->id)->first();
+        $d = new Drink();
+        $drink = $d->where('id','LIKE',$request->id)->first();
         if($drink == null){
             return redirect('/');
         }
         $validAge = Cookie::get('ValidAge');
-        // dd($validAge);
         if($drink->adultsOnly && $validAge == null){
             return response()->view('checkage',compact('drink'));
         }

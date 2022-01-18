@@ -23,7 +23,7 @@
 <div class="p-2">
     <h1>Transaction Receipt</h1>
     <div class="bg-white p-3">
-    @if (sizeOf($transactionReceipt) > 0)
+    @if (sizeOf($transactionReceipt) > 0 && $transactions != null)
 
         {{-- @foreach ($transactionReceipt as $receipt) --}}
         {{-- {{dd($transactionReceipt[0])}} --}}
