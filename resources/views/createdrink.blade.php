@@ -20,8 +20,8 @@
 @endif
 
 <div class="px-3">
-    <h1>Create Drinks</h1>
-    <form action="{{Route('CreateDrink')}}" method="post" enctype="multipart/form-data">
+    <h1>Create Drink</h1>
+    <form action="{{Route('CreateGame')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="mb-3">
             <label for="name" class="form-label fw-bold">Drink Name</label>

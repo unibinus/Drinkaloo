@@ -1,6 +1,6 @@
 body{
-    color: #FFF;
-    background-color: #171a21;
+    color: #000;
+    background-color: #FFF;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -21,12 +21,12 @@ h1{
 }
 
 .btn{
-    background-color: rgb(97, 57, 191);
+    background-color: rgb(0, 0, 0);
     color: #fff;
 }
 
 .link{
-    color: rgb(97, 57, 191);
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: small;
     font-weight: 500;

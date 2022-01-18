@@ -61,13 +61,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown" href="#" id="navbarDDLProfile" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                {{-- {{dd(Session::get('mySession')['profilePic'])}} --}}
                                 <img src="{{Storage::url(Session::get('mySession')['profilePic'])}}" class="rounded-circle" alt="profile-pic w-25" width="27px" height="27px">
 
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDDLProfile">
                                 <li><a class="dropdown-item" href="/Profile">Profile</a></li>
-                                {{-- <li><a class="dropdown-item" href="/Friend">Friends</a></li> --}}
                                 <li><a class="dropdown-item" href="/TransactionHistory">Transaction History</a></li>
                                 <li><a class="dropdown-item" href="/Logout">Sign Out</a></li>
                             </ul>
@@ -88,7 +86,7 @@
                             <a class="nav-link text-light" href="/">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link text-light" href="/ManageGame">Manage Game</a>
+                            <a class="nav-link text-light" href="/ManageGame">Manage Drink</a>
                         </li>
                     </ul>
                     <div class="collapse navbar-collapse d-flex justify-content-end me-2">
