@@ -21,7 +21,7 @@ class CreateDrinksTable extends Migration
             $table->text('description');
             $table->integer('quantity');
             $table->integer('price');
-            $table->boolean('adultOnly');
+            $table->boolean('adultsOnly');
             $table->timestamps();
         });
     }

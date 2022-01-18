@@ -22,7 +22,7 @@ class DrinkSeeder extends Seeder
                 'description' => 'This is apple juice',
                 'quantity' => 50,
                 'price' => 45000,
-                'adultonly' => 0
+                'adultsonly' => 0
             ],
             [
                 'name' => 'Orange Juice',
@@ -31,7 +31,7 @@ class DrinkSeeder extends Seeder
                 'description' => 'This is orange juice',
                 'quantity' => 80,
                 'price' => 50000,
-                'adultonly' => 0
+                'adultsonly' => 0
             ],
             [
                 'name' => 'Vodka',
@@ -40,7 +40,7 @@ class DrinkSeeder extends Seeder
                 'description' => 'This is vodka',
                 'quantity' => 120,
                 'price' => 175000,
-                'adultonly' => 1
+                'adultsonly' => 1
             ],
             [
                 'name' => 'Whiskey',
@@ -49,7 +49,7 @@ class DrinkSeeder extends Seeder
                 'description' => 'This is whiskey',
                 'quantity' => 55,
                 'price' => 200000,
-                'adultonly' => 1
+                'adultsonly' => 1
             ],
             [
                 'name' => 'Champagne',
@@ -58,7 +58,7 @@ class DrinkSeeder extends Seeder
                 'description' => 'This is champagne',
                 'quantity' => 125,
                 'price' => 250000,
-                'adultonly' => 1
+                'adultsonly' => 1
             ],
         ]);
     }
