@@ -55,7 +55,7 @@
             </form>
             </div>
             <div class="col m-0 p-0" >
-                <img src="{{Storage::url('public/images/RegisterImage.jpg')}}" height="100%" width="100%" alt="">
+                <img src="{{Storage::url('public/RegisterImage.jpg')}}"  height="100%" width="100%" alt="">
             </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
