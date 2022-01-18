@@ -4,12 +4,10 @@
 <div class="my-5 pt-5">
     <div class="position-relative border border-2 border-dark">
         <div class="position-absolute top-0 start-50 translate-middle translate-middle">
-            {{-- <img src="{{Storage::url(Session::get('gameDetailSession')->picture)}}" width="200px"  alt=""> --}}
-            <img src="{{Storage::url($game->picture)}}" width="200px"  alt="">
+            <img src="{{Storage::url($drink->picture)}}" width="200px"  alt="">
         </div>
         <div class="text-center d-flex flex-column align-items-center mt-5 pt-5">
-            {{-- <form action="Game/CheckAge/{{Session::get('gameDetailSession')->id}}" method="POST" class="form-container"> --}}
-            <form action="CheckAge/{{$game->id}}" method="POST" class="form-container">
+            <form action="CheckAge/{{$drink->id}}" method="POST" class="form-container">
                 <p class="fw-bold">CONTENT IN THIS PRODUCT MAY NOT BE APPROPRIATE FOR ALL AGES, OR MAY NOT <br>BE APPROPRIATE FOR VIEWING AT WORK.</p>
                 <div class="p-4 shadow fw-bold" style="background-color: #E5E7EB">
                 <p>Please enter your birth date to continue:</p>
