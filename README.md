@@ -1,1 +1,2 @@
-Project WebProg LEC
+Project WEBPROG LEC
+Drinkaloo
