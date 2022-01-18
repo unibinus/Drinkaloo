@@ -51,17 +51,6 @@
 
         {{-- Kalau admin atau member punya drinknya, maka hide add to cart--}}
         @if (Session::has('mySession'))
-            @if (Session::get('mySession')['role_id'] == 1 || $drinkOwned)
-            <form action="AddToCart/{{$drinkDetail->id}}" class="hide" method="POST">
-                {{ csrf_field() }}
-                <div class="position-absolute add-to-cart">
-                    {{-- top 70 left 85 --}}
-                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($drinkDetail->price,0,'.','.')}}
-                        <div class="vr mx-3"></div>
-                        <i class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
-                </div>
-            </form>
-            @else
             {{-- user logged in belum punya drink--}}
             <form action="AddToCart/{{$drinkDetail->id}}" method="POST">
                 {{ csrf_field() }}
@@ -72,8 +61,8 @@
                         <i class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
                 </div>
             </form>
-            @endif
-            @else
+
+        @else
             {{-- guest--}}
             <form action="AddToCart/{{$drinkDetail->id}}" method="POST">
                 {{ csrf_field() }}
