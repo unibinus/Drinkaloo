@@ -19,49 +19,57 @@ class TransactionDetailSeeder extends Seeder
         DB::table('transaction_details')->insert([
             [
                 'header_transaction_id' => 1,
-                'game_id' => 2,
+                'drink_id' => 2,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 1,
-                'game_id' => 3,
+                'drink_id' => 3,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 2,
-                'game_id' => 1,
+                'drink_id' => 1,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 2,
-                'game_id' => 5,
+                'drink_id' => 5,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 2,
-                'game_id' => 4,
+                'drink_id' => 4,
+                'quantity' => 2,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 3,
-                'game_id' => 6,
+                'drink_id' => 3,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 4,
-                'game_id' => 5,
+                'drink_id' => 5,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
                 'header_transaction_id' => 4,
-                'game_id' => 4,
+                'drink_id' => 4,
+                'quantity' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]

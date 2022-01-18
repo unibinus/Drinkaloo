@@ -18,19 +18,19 @@ class CartSeeder extends Seeder
         //
         DB::table('carts')->insert([
             [
-                'game_id' => 10,
+                'drink_id' => 1,
                 'user_id' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
-                'game_id' => 11,
+                'drink_id' => 3,
                 'user_id' => 1,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],
             [
-                'game_id' => 2,
+                'drink_id' => 2,
                 'user_id' => 2,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()

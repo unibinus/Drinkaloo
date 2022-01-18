@@ -22,7 +22,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'Budi Sukses',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 2,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -33,7 +32,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'Tintin Sutintin',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 0,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -44,7 +42,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'Jajang Sujajang',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 0,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -54,7 +51,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'Dedeng Sudedeng',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 0,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -64,7 +60,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'George',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 2,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -74,7 +69,6 @@ class UserSeeder extends Seeder{
             'fullName' => 'Testing',
             'password' => Hash::make('password'),
             'profilePic' => 'public/images/pic1.jpg',
-            'level' => 2,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
