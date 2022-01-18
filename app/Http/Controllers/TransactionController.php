@@ -16,21 +16,24 @@ use Illuminate\Support\Facades\Validator;
 class TransactionController extends Controller
 {
 
-    public function transactionHistory(Request $request){
-        $userSession = Session('mySession','default');
+    public function transactionHistory(Request $request)
+    {
+        $userSession = Session('mySession', 'default');
         $ht = new HeaderTransaction();
         $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->get();
 
         $filteredTransactions = [];
 
         //Loop sebanyak transactions yang dimiliki user
-        for($i=0; $i<sizeOf($transactions); $i++){
+        for ($i = 0; $i < sizeOf($transactions); $i++) {
             $detailDrink = $transactions[$i]->drinks;
+            $detailTrans = $transactions[$i]->transactionDetail;
             $totalPrice = 0;
 
             //Loop sebanyak drink yang dibeli user dalam 1 transaksi
-            for($j=0; $j<sizeOf($detailDrink); $j++){
-                $totalPrice += $detailDrink[$j]->price;
+            for ($j = 0; $j < sizeOf($detailDrink); $j++) {
+                // $totalPrice += $detailDrink[$j]->price;
+                $totalPrice += $detailDrink[$j]->price * $detailTrans[$j]->quantity;
             }
             $temp = [
                 'transactionID' => $transactions[$i]->id,
@@ -45,30 +48,33 @@ class TransactionController extends Controller
         return view('transactionHistory', compact('filteredTransactions'));
     }
 
-    public function transactionInformationIndex(){
-        $userSession = session('mySession','default');
+    public function transactionInformationIndex()
+    {
+        $userSession = session('mySession', 'default');
         $userID = $userSession['id'];
-        $cookieCart = Cookie::get($userID.'cart');
+        $cookieCart = Cookie::get($userID . 'cart');
         $cart = json_decode($cookieCart);
         $g = new Drink();
-        $drinkIDs =[];
-        for ($i=0; $i < sizeof($cart) ; $i++) {
+        $drinkIDs = [];
+        for ($i = 0; $i < sizeof($cart); $i++) {
             //ambil id drink dari cart
-            array_push($drinkIDs,$cart[$i]->drink_id);
+            array_push($drinkIDs, $cart[$i]->drink_id);
         }
         // query
-        $drinks = $g->whereIn('id',$drinkIDs)->get();
+        $drinks = $g->whereIn('id', $drinkIDs)->get();
         $totalPrice = 0;
-        for($i = 0; $i < sizeof($drinks); $i++) {
-            $totalPrice += $drinks[$i]->price;
+        for ($i = 0; $i < sizeof($drinks); $i++) {
+            $totalPrice += $drinks[$i]->price *  $cart[$i]->quantity;
         }
-        return view('transactionInformation',compact('totalPrice'));
+        return view('transactionInformation', compact('totalPrice'));
     }
 
-    public function transactionInformation(Request $request){
+    public function transactionInformation(Request $request)
+    {
         $validationRules = [
             'cardName' => 'required|min:6',
-            'cardNumber' => ['required',
+            'cardNumber' => [
+                'required',
                 function ($attribute, $value, $fail) {
                     $cardFormat = explode(" ", $value);
                     //formatnya bukan " ", atau kelebihan spasi
@@ -77,17 +83,17 @@ class TransactionController extends Controller
                         return;
                     }
                     //kalau kelebihan angka
-                    for($i = 0; $i < 4; $i++){
-                        if(strlen($cardFormat[$i]) != 4){
+                    for ($i = 0; $i < 4; $i++) {
+                        if (strlen($cardFormat[$i]) != 4) {
                             $fail("Card Number must be in '0000 0000 0000 0000' format.");
                             return;
                         }
                     }
                     //kalau bukan numeric
-                    $cardNumber = str_replace(" ","",$value);
+                    $cardNumber = str_replace(" ", "", $value);
                     // dd($value, $cardFormat, $cardNumber);
-                    for($i = 0; $i < strlen($cardNumber); $i++){
-                        if(!is_numeric($cardNumber[$i])){
+                    for ($i = 0; $i < strlen($cardNumber); $i++) {
+                        if (!is_numeric($cardNumber[$i])) {
                             $fail("Card Number must be numeric.");
                             return;
                         }
@@ -118,24 +124,24 @@ class TransactionController extends Controller
 
         $validator = Validator::make($request->all(), $validationRules, $errorMsg);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
         //init var
-        $userSession = Session('mySession','default');
+        $userSession = Session('mySession', 'default');
         $u = new User();
         $c = new Cart();
-        $user = $u->where('id','LIKE',$userSession['id'])->first();
-        $cart = $c->where('user_id','LIKE',$userSession['id'])->get();
+        $user = $u->where('id', 'LIKE', $userSession['id'])->first();
+        $cart = $c->where('user_id', 'LIKE', $userSession['id'])->get();
         // $cookieCart = Cookie::get($user->id.'cart');
         // $cart = json_decode($cookieCart);
-        if(sizeOf($cart) == 0){
+        if (sizeOf($cart) == 0) {
             return back();
         }
-        $drinkIDs =[];
-        for ($i=0; $i < sizeof($cart) ; $i++) {
+        $drinkIDs = [];
+        for ($i = 0; $i < sizeof($cart); $i++) {
             //ambil id drink dari cart
-            array_push($drinkIDs,$cart[$i]->drink_id);
+            array_push($drinkIDs, $cart[$i]->drink_id);
         }
         //insert ke transaction
         $ht = new HeaderTransaction();
@@ -144,7 +150,7 @@ class TransactionController extends Controller
         $ht->purchaseDate = $currentDate->format('Y-m-j H:i:s');
         $ht->save();
 
-        for($i = 0; $i < sizeof($cart); $i++){
+        for ($i = 0; $i < sizeof($cart); $i++) {
             $td = new TransactionDetail();
             $td->header_transaction_id = $ht->id;
             $td->drink_id = $cart[$i]->drink_id;
@@ -162,41 +168,43 @@ class TransactionController extends Controller
 
         //clear cart
         // dd("DELET",$drinkIDs,$user->id);
-        $c->where('user_id','LIKE',$user->id)->whereIn('drink_id',$drinkIDs)->delete();
+        $c->where('user_id', 'LIKE', $user->id)->whereIn('drink_id', $drinkIDs)->delete();
         // $cart = [];
         // $newCarts = json_encode($cart);
         // Cookie::queue($user->id."cart",$newCarts,0);
         Session::put('transactionSession', $ht->id);
         return redirect('/TransactionReceipt');
     }
-    public function transactionReceiptIndex(Request $request){
-        $userSession = Session('mySession','default');
-        $transactionID = Session('transactionSession','default');
+    public function transactionReceiptIndex(Request $request)
+    {
+        $userSession = Session('mySession', 'default');
+        $transactionID = Session('transactionSession', 'default');
         $ht = new HeaderTransaction();
         $transactionReceipt = [];
         $transactions = null;
         $totalPrice = 0;
 
-        if($transactionID != 'default'){
+        if ($transactionID != 'default') {
 
-            $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->where('id','LIKE',$transactionID)->first();
+            $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->where('id', 'LIKE', $transactionID)->first();
 
             //loop dari transaction sekarang
             $transactionDetails = $transactions->transactionDetail;
             // dd($transactions, sizeOf($transactionDetails),$transactionDetails);
-            for($i = 0; $i < sizeOf($transactionDetails); $i++){
+            for ($i = 0; $i < sizeOf($transactionDetails); $i++) {
                 // dd($transactionDetails[$i]->drink, $transactionDetails[$i]->quantity * $transactionDetails[$i]->drink->price);
                 $temp = [
                     'drink' => $transactionDetails[$i]->drink,
                     'quantity' => $transactionDetails[$i]->quantity,
                     'subTotal' => $transactionDetails[$i]->quantity * $transactionDetails[$i]->drink->price,
                 ];
+                // $totalPrice += $transactionDetails[$i]->quantity * $transactionDetails[$i]->price;
                 $totalPrice += $temp['subTotal'];
-                array_push($transactionReceipt,$temp);
+                array_push($transactionReceipt, $temp);
             }
             // dd($transactionReceipt);
             $request->session()->forget('transactionSession');
         }
-        return view('transactionreceipt',compact('transactions','transactionReceipt','totalPrice'));
+        return view('transactionreceipt', compact('transactions', 'transactionReceipt', 'totalPrice'));
     }
 }
