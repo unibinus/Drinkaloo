@@ -14,7 +14,10 @@ class HeaderTransaction extends Model
     public function transactionDetail(){
         return $this->hasMany(TransactionDetail::class);
     }
-    public function games(){
-        return $this->belongsToMany(Game::class,'transaction_details','header_transaction_id','game_id');
+    // public function games(){
+    //     return $this->belongsToMany(Game::class,'transaction_details','header_transaction_id','game_id');
+    // }
+    public function drinks(){
+        return $this->belongsToMany(Drink::class,'transaction_details','header_transaction_id','drink_id');
     }
 }

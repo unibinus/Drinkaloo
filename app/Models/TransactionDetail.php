@@ -11,8 +11,11 @@ class TransactionDetail extends Model
     public function headerTransaction(){
         return $this->belongsTo(HeaderTransaction::class, 'header_transaction_id');
     }
-    public function game(){
-        return $this->belongsTo(Game::class, 'game_id');
+    // public function game(){
+    //     return $this->belongsTo(Game::class, 'game_id');
+    // }
+    public function drink(){
+        return $this->belongsTo(Drink::class, 'drink_id');
     }
 
     // protected $primaryKey = 'header_transaction_id';
