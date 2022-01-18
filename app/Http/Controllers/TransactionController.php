@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Game;
+use App\Models\Drink;
 use App\Models\HeaderTransaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
@@ -25,17 +25,17 @@ class TransactionController extends Controller
 
         //Loop sebanyak transactions yang dimiliki user
         for($i=0; $i<sizeOf($transactions); $i++){
-            $detailGame = $transactions[$i]->games;
+            $detailDrink = $transactions[$i]->drinks;
             $totalPrice = 0;
 
-            //Loop sebanyak game yang dibeli user dalam 1 transaksi
-            for($j=0; $j<sizeOf($detailGame); $j++){
-                $totalPrice += $detailGame[$j]->price;
+            //Loop sebanyak drink yang dibeli user dalam 1 transaksi
+            for($j=0; $j<sizeOf($detailDrink); $j++){
+                $totalPrice += $detailDrink[$j]->price;
             }
             $temp = [
                 'transactionID' => $transactions[$i]->id,
                 'purchaseDate' => $transactions[$i]->created_at,
-                'games' =>  $detailGame,
+                'drinks' =>  $detailDrink,
                 'totalPrice' => $totalPrice,
             ];
 
@@ -50,17 +50,17 @@ class TransactionController extends Controller
         $userID = $userSession['id'];
         $cookieCart = Cookie::get($userID.'cart');
         $cart = json_decode($cookieCart);
-        $g = new Game();
-        $gameIDs =[];
+        $g = new Drink();
+        $drinkIDs =[];
         for ($i=0; $i < sizeof($cart) ; $i++) {
-            //ambil id game dari cart
-            array_push($gameIDs,$cart[$i]->game_id);
+            //ambil id drink dari cart
+            array_push($drinkIDs,$cart[$i]->drink_id);
         }
         // query
-        $games = $g->whereIn('id',$gameIDs)->get();
+        $drinks = $g->whereIn('id',$drinkIDs)->get();
         $totalPrice = 0;
-        for($i = 0; $i < sizeof($games); $i++) {
-            $totalPrice += $games[$i]->price;
+        for($i = 0; $i < sizeof($drinks); $i++) {
+            $totalPrice += $drinks[$i]->price;
         }
         return view('transactionInformation',compact('totalPrice'));
     }
@@ -130,10 +130,10 @@ class TransactionController extends Controller
         if(sizeOf($cart) == 0){
             return back();
         }
-        $gameIDs =[];
+        $drinkIDs =[];
         for ($i=0; $i < sizeof($cart) ; $i++) {
-            //ambil id game dari cart
-            array_push($gameIDs,$cart[$i]->game_id);
+            //ambil id drink dari cart
+            array_push($drinkIDs,$cart[$i]->drink_id);
         }
         //insert ke transaction
         $ht = new HeaderTransaction();
@@ -145,7 +145,7 @@ class TransactionController extends Controller
         for($i = 0; $i < sizeof($cart); $i++){
             $td = new TransactionDetail();
             $td->header_transaction_id = $ht->id;
-            $td->game_id = $cart[$i]->game_id;
+            $td->drink_id = $cart[$i]->drink_id;
             $td->save();
         }
 
@@ -159,7 +159,7 @@ class TransactionController extends Controller
 
         //clear cart
         $c = new Cart();
-        $c->where('user_id','LIKE',$user->id)->whereIn('game_id',$gameIDs)->delete();
+        $c->where('user_id','LIKE',$user->id)->whereIn('drink_id',$drinkIDs)->delete();
 
         $cart = [];
         $newCarts = json_encode($cart);
@@ -179,17 +179,17 @@ class TransactionController extends Controller
 
             //Loop sebanyak transactions yang dimiliki user
             for($i=0; $i<sizeOf($transactions); $i++){
-                $detailGame = $transactions[$i]->games;
+                $detailDrink = $transactions[$i]->drinks;
                 $totalPrice = 0;
 
-                //Loop sebanyak game yang dibeli user dalam 1 transaksi
-                for($j=0; $j<sizeOf($detailGame); $j++){
-                    $totalPrice += $detailGame[$j]->price;
+                //Loop sebanyak drink yang dibeli user dalam 1 transaksi
+                for($j=0; $j<sizeOf($detailDrink); $j++){
+                    $totalPrice += $detailDrink[$j]->price;
                 }
                 $temp = [
                     'transactionID' => $transactions[$i]->id,
                     'purchaseDate' => $transactions[$i]->created_at,
-                    'games' =>  $detailGame,
+                    'drinks' =>  $detailDrink,
                     'totalPrice' => $totalPrice,
                 ];
 
