@@ -111,7 +111,7 @@
                         <ul class="list-group">
                             <a href="/UpdateDrink/{{$drink["id"]}}" class="btn btn-light text-start my-1 border-rad-10">
                                 <i class="fas fa-pencil-alt me-2 icon-16"></i>Update</a>
-                            <button class="btn btn-light text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteDrink{{$drink["id"]}}">
+                            <button class="btn btn-danger text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteDrink{{$drink["id"]}}">
                                 <i class="fas fa-trash-alt me-2 icon-16"></i>Delete</button>
                         </ul>
                     </div>

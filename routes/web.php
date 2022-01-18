@@ -46,6 +46,7 @@ Route::post('/Drink/AddToCart/{id}',[CartController::class,'addToCart'])->middle
 Route::get('/ManageDrink',[DrinkController::class,'manageDrinkIndex'])->middleware(['auth','admin']);
 Route::get('/ManageDrink/FilterDrink',[DrinkController::class,'filterDrink'])->name('FilterDrink')->middleware(['auth','admin']);
 Route::delete('ManageDrink/DeleteDrink/{id}',[DrinkController::class,'deleteDrink'])->name('DeleteDrink')->middleware(['auth','admin']);
+Route::delete('DeleteDrink/{id}',[DrinkController::class,'deleteDrink'])->name('DeleteDrink')->middleware(['auth','admin']);
 Route::get('/UpdateDrink/{id}',[DrinkController::class,'updateDrinkIndex'])->middleware(['auth','admin']);
 Route::put('/UpdateDrink/{id}',[DrinkController::class,'updateDrink'])->name('UpdateDrink')->middleware(['auth','admin']);
 Route::get('/CreateDrink',[DrinkController::class,'createDrinkIndex'])->middleware(['auth','admin']);

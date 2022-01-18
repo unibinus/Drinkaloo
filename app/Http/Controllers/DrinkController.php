@@ -126,8 +126,8 @@ class DrinkController extends Controller
         // dd($drinks);
         return view('managedrink',compact('drinks'));
     }
-    public function deletedrink(Request $request){
-        dd($request->id);
+    public function deleteDrink(Request $request){
+        // dd($request->id);
         $drinkID = $request->id;
         $g = new Drink();
         $drink = $g->where('id','LIKE',$drinkID)->first();
