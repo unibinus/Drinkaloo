@@ -25,44 +25,58 @@
     <div class="bg-white p-3">
     @if (sizeOf($transactionReceipt) > 0)
 
-        @foreach ($transactionReceipt as $receipt)
+        {{-- @foreach ($transactionReceipt as $receipt) --}}
+        {{-- {{dd($transactionReceipt[0])}} --}}
         <div class="border-bottom py-3">
             <div>
-                Transaction ID: {{$receipt['transactionID']}}
+                Transaction ID: {{$transactions->id}}
             </div>
             <div>
                 {{-- Purchased Date: 21-05-2021 07:20:40 --}}
                 {{-- Purchased Date: {{date('F j, Y',strtotime($drinkDetail->releaseDate))}} --}}
-                Purchased Date: {{date('j-m-Y H:i:s',strtotime($receipt['purchaseDate']))}}
+                Purchased Date: {{date('j-m-Y H:i:s',strtotime($transactions->purchaseDate))}}
 
             </div>
         </div>
-        @foreach ($receipt['drinks'] as $drink)
+        @foreach ($transactionReceipt as $receipt)
         <div class="row d-flex align-items-center border-bottom py-3">
 
             <div class="col">
-                <img src="{{Storage::url($drink->picture)}}" width="300px" alt="">
+                <img src="{{Storage::url($receipt['drink']->picture)}}" width="300px" alt="">
             </div>
 
             <div class="col-9">
                 <div class="d-flex align-items-center">
-                    <p class="fs-3 m-0 fw-bold">{{$drink->name}}</p>
+                    <p class="fs-3 m-0 fw-bold">{{$receipt['drink']->name}}</p>
                     <p class="mx-2 mb-0 p-1 bg-dark text-white rounded-pill">
-                        {{$drink->genre}}
+                        {{$receipt['drink']->category}}
                     </p>
                 </div>
-                <div>
-                    <i class="fas fa-tags"></i>
-                    <span class="mx-2">Rp. {{number_format($drink->price,0,'.','.')}}</span>
+                <div class="d-flex justify-content-between me-5 pe-5">
+                    <div>
+                        <i class="fas fa-tags"></i>
+                        <span class="mx-2">Rp. {{number_format($receipt['drink']->price,0,'.','.')}}</span>
+                    </div>
+                    <div>
+                        <span class="mx-2">X</span>
+                    </div>
+                    <div>
+                        <span class="mx-2">{{$receipt['quantity']}}</span>
+                    </div>
+                    <div>
+                        <span class="mx-2">Rp. {{number_format($receipt['subTotal'],0,'.','.')}}</span>
+                    </div>
                 </div>
+            </div>
+
             </div>
 
         </div>
         @endforeach
         <div class="d-flex align-items-center">
-            <p class="mt-2 d-flex align-items-center">Total Price <span class="mx-2 fs-4"><strong>Rp. {{number_format($receipt['totalPrice'],0,'.','.')}}</strong></span></p>
+            <p class="mt-2 d-flex align-items-center">Total Price <span class="mx-2 fs-4"><strong>Rp. {{number_format($totalPrice,0,'.','.')}}</strong></span></p>
         </div>
-        @endforeach
+        {{-- @endforeach --}}
     </div>
     @else
     <h1>There are no transaction receipt right now</h1>
