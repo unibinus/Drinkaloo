@@ -80,7 +80,7 @@ class DrinkController extends Controller
         //if filter check box not null dan ada query drink name
         if($selected && $drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
-                $queryRes = $g->where('name','LIKE',"%$drinkName%")->where('genre','LIKE',$selected[$i])->get();
+                $queryRes = $g->where('name','LIKE',"%$drinkName%")->where('category','LIKE',$selected[$i])->get();
                 for($j = 0; $j < sizeof($queryRes); $j++){
                     array_push($drinkList,$queryRes[$j]->getAttributes());
                 }
@@ -89,7 +89,7 @@ class DrinkController extends Controller
         //if filter check box not null dan ga ada query drink name
         else if($selected && !$drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
-                $queryRes = $g->where('genre','LIKE',$selected[$i])->get();
+                $queryRes = $g->where('category','LIKE',$selected[$i])->get();
                 for($j = 0; $j < sizeof($queryRes); $j++){
                     array_push($drinkList,$queryRes[$j]->getAttributes());
                 }
@@ -127,6 +127,7 @@ class DrinkController extends Controller
         return view('managedrink',compact('drinks'));
     }
     public function deletedrink(Request $request){
+        dd($request->id);
         $drinkID = $request->id;
         $g = new Drink();
         $drink = $g->where('id','LIKE',$drinkID)->first();
@@ -147,6 +148,7 @@ class DrinkController extends Controller
             'description' => 'required|max:500',
             'category' => 'required',
             'price' => 'required|numeric|max:1000000',
+            'quantity' => 'required|numeric|max:100',
             'cover' => 'required|file|mimes:jpg|max:100',
         ];
         $errorMsg = [
@@ -158,6 +160,9 @@ class DrinkController extends Controller
             'price.required' => 'Drink price cannot be empty.',
             'price.numeric' => 'Drink price must be numeric.',
             'price.max' => 'Drink price must be less than 1 million.',
+            'quantity.required' => 'Drink quantity cannot be empty.',
+            'quantity.numeric' => 'Drink quantity must be numeric.',
+            'quantity.max' => 'Drink quantity must be less than 1 hundred.',
             'cover.required' => 'Drink cover cannot be empty.',
             'cover.file' => 'Drink cover upload has failed ',
             'cover.mimes' => 'Drink cover extension must be jpg file.',
@@ -171,9 +176,10 @@ class DrinkController extends Controller
         // dd($formatDate);
         $g = new Drink();
         $g->name = $request->name;
-        $g->genre = $request->category;
+        $g->category = $request->category;
         //cover
         $drinkName = str_replace(" ","",$request->name);
+
         $cover = $request->cover;
         $coverName = $drinkName.".".$cover->getClientOriginalExtension();
         Storage::putFileAs('public/images', $cover, $coverName);
@@ -181,10 +187,9 @@ class DrinkController extends Controller
         //trailer
 
         $g->description = $request->description;
-        $currentDate = new DateTime("now");
-        $g->releaseDate = $currentDate->format('Y-n-j');
         $g->price = $request->price;
-        $g->adultsOnly = $request->adultChk ? 1 : 0;
+        $g->quantity = $request->quantity;
+        $g->adultOnly = $request->adultChk ? 1 : 0;
         $g->save();
         return redirect('/ManageDrink')->with('Success','Drink has been created successfully');
 
@@ -223,7 +228,7 @@ class DrinkController extends Controller
         $g = new Drink();
         $drink = $g->where('id','LIKE',$request->id)->first();
         $drink->name = $drink->name;
-        $drink->genre = $request->category;
+        $drink->category = $request->category;
         //cover
         $drinkName = str_replace(" ","",$drink->name);
         $cover = $request->cover;
@@ -238,9 +243,8 @@ class DrinkController extends Controller
         }
 
         $drink->description = $request->description;
-        $drink->releaseDate = $drink->releaseDate;
         $drink->price = $request->price;
-        $drink->adultsOnly = $drink->adultsOnly;
+        $drink->adultOnly = $drink->adultOnly;
         $drink->save();
         return redirect('/ManageDrink')->with('Success','Drink has been updated successfully');
 

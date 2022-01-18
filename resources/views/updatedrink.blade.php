@@ -39,15 +39,12 @@
         <div class="mb-3">
             <label for="category" class="form-label fw-bold">Drink Category</label>
             <select class="form-select" name="category" aria-selected="Action">
-                <option value="Idle" {{$drinkDetail->genre == "Idle"? "Selected":""}}>Idle</option>
-                <option value="Horror" {{$drinkDetail->genre == "Horror"? "Selected":""}}>Horror</option>
-                <option value="Adventure" {{$drinkDetail->genre == "Adventure"? "Selected":""}}>Adventure</option>
-                <option value="Action" {{$drinkDetail->genre == "Action"? "Selected":""}}>Action</option>
-                <option value="Sports" {{$drinkDetail->genre == "Sports"? "Selected":""}}>Sports</option>
-                <option value="Strategy" {{$drinkDetail->genre == "Strategy"? "Selected":""}}>Strategy</option>
-                <option value="Role-playing" {{$drinkDetail->genre == "Role-playing"? "Selected":""}}>Role-playing</option>
-                <option value="Puzzle" {{$drinkDetail->genre == "Puzzle"? "Selected":""}}>Puzzle</option>
-                <option value="Simulation" {{$drinkDetail->genre == "Simulation"? "Selected":""}}>Simulation</option>
+                <option value="Alcohol" {{$drinkDetail->category == "Alcohol"? "Selected":""}}>Alcohol</option>
+                <option value="Juice" {{$drinkDetail->category == "Juice"? "Selected":""}}>Juice</option>
+                <option value="Mineral" {{$drinkDetail->category == "Mineral"? "Selected":""}}>Mineral</option>
+                <option value="Tea" {{$drinkDetail->category == "Tea"? "Selected":""}}>Tea</option>
+                <option value="Coffee" {{$drinkDetail->category == "Coffee"? "Selected":""}}>Coffee</option>
+                <option value="Milk" {{$drinkDetail->category == "Milk"? "Selected":""}}>Milk</option>
             </select>
         </div>
         <div class="mb-3">
@@ -58,6 +55,8 @@
             <label for="cover" class="form-label fw-bold">Drink Cover</label>
             <input type="file" class="form-control" name="cover">
         </div>
+    </div>
+   
         <hr class="hr-style hr-light-style my-4">
         <div class="d-flex justify-content-end mb-4">
             <a href="/ManageDrink" class="btn btn-light mx-3" >Cancel</a>

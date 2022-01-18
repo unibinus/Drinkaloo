@@ -21,7 +21,7 @@
 
 <div class="px-3">
     <h1>Create Drink</h1>
-    <form action="{{Route('CreateGame')}}" method="post" enctype="multipart/form-data">
+    <form action="{{Route('CreateDrink')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="mb-3">
             <label for="name" class="form-label fw-bold">Drink Name</label>
@@ -35,15 +35,12 @@
         <div class="mb-3">
             <label for="category" class="form-label fw-bold">Drink Category</label>
             <select class="form-select" name="category">
-                <option value="Idle">Idle</option>
-                <option value="Horror">Horror</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Action">Action</option>
-                <option value="Sports">Sports</option>
-                <option value="Strategy">Strategy</option>
-                <option value="Role-playing">Role-playing</option>
-                <option value="Puzzle">Puzzle</option>
-                <option value="Simulation">Simulation</option>
+               <option value="Alcohol">Alcohol</option>
+                <option value="Juice">Juice</option>
+                <option value="Mineral">Mineral</option>
+                <option value="Tea">Tea</option>
+                <option value="Coffee">Coffee</option>
+                <option value="Milk">Milk</option>
             </select>
         </div>
         <div class="mb-3">
@@ -51,8 +48,12 @@
             <input type="text" class="form-control" name="price">
         </div>
         <div class="mb-3">
+            <label for="price" class="form-label fw-bold">Drink Quantity</label>
+            <input type="text" class="form-control" name="quantity">
+        </div>
+        <div class="mb-3">
             <label for="cover" class="form-label fw-bold">Drink Picture</label>
-            <input type="file" class="form-control" name="picture">
+            <input type="file" class="form-control" name="cover">
         </div>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="adultChk" name="adultChk">

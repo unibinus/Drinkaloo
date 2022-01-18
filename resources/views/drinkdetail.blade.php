@@ -33,7 +33,7 @@
     </ol>
   </nav>
     <div class="">
-        <div class="row">
+        <div class="row" style="width: 30%">
             <img src="{{Storage::url($drinkDetail->picture)}}" class="border-rad-20" height="250px" alt="">
         </div>
         <div class="my-2 row">

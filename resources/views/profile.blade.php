@@ -66,13 +66,9 @@
                 @method("PUT")
                 {{ csrf_field() }}
                 <div class="row align-items-center">
-                    <div class="mb-4 col-8">
+                    <div class="mb-4 col-10">
                         <label for="username" class="form-label opacity-75"><strong>Username</strong></label>
                         <input type="text" class="form-control" name="username" id="username" value={{$user->username}} disabled="disabled">
-                    </div>
-                    <div class="mb-4 col-2">
-                        <label for="level" class="form-label opacity-75"><strong>Level</strong></label>
-                        <input type="text" class="form-control" name="level" id="level" value={{$user->level}} disabled="disabled">
                     </div>
 
                     <div class="mb-4 col">

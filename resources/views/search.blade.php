@@ -12,7 +12,7 @@
                     <div class="card-img-overlay d-flex align-items-end">
                         <div class="bg-white opacity-75 p-2 border-rad-10">
                             <p class="drink-title fs-5 card-title ">{{$drink->name}}</p>
-                            <p class="card-text ">{{$drink->genre}}</p>
+                            <p class="card-text ">{{$drink->category}}</p>
                         </div>
                         <a href="Drink/{{$drink->id}}" class="btn stretched-link btn-focus-none"></a>
                     </div>

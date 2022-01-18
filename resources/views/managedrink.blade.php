@@ -28,54 +28,37 @@
                 <div class="col ps-0">
                     <div class="form-check form-check-inline">
                         {{-- dalam bentuk array, biar bisa dipilih dan dapetin multiple value --}}
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Idle">
-                        <label class="form-check-label" for="inlineCheckbox1">Idle</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Alcohol">
+                        <label class="form-check-label" for="inlineCheckbox1">Alcohol</label>
                     </div>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Strategy">
-                        <label class="form-check-label" for="inlineCheckbox1">Strategy</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Juice">
+                        <label class="form-check-label" for="inlineCheckbox1">Juice</label>
                     </div>
                 </div>
                 <div class="col ps-0">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Horror">
-                        <label class="form-check-label" for="inlineCheckbox1">Horror</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Mineral">
+                        <label class="form-check-label" for="inlineCheckbox1">Mineral</label>
                     </div>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Role-playing">
-                        <label class="form-check-label" for="inlineCheckbox1">Role-playing</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Tea">
+                        <label class="form-check-label" for="inlineCheckbox1">Tea</label>
                     </div>
                 </div>
                 <div class="col ps-0">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Adventure">
-                        <label class="form-check-label" for="inlineCheckbox1">Adventure</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Coffee">
+                        <label class="form-check-label" for="inlineCheckbox1">Coffee</label>
                     </div>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Puzzle">
-                        <label class="form-check-label" for="inlineCheckbox1">Puzzle</label>
+                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Milk">
+                        <label class="form-check-label" for="inlineCheckbox1">Milk</label>
                     </div>
 
-                </div>
-                <div class="col ps-0">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Action">
-                        <label class="form-check-label" for="inlineCheckbox1">Action</label>
-                    </div>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Simulation">
-                        <label class="form-check-label" for="inlineCheckbox1">Simulation</label>
-                    </div>
-                </div>
-                <div class="col ps-0">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Sports">
-                        <label class="form-check-label" for="inlineCheckbox1">Sports</label>
-                    </div>
                 </div>
             </div>
         </div>
@@ -120,7 +103,7 @@
                             <div class="card-img-overlay d-flex align-items-end">
                                 <div class="bg-white opacity-75 p-2 border-rad-10">
                                     <p class="bold-900 fs-5 card-title ">{{$drink["name"]}}</p>
-                                    <p class="card-text ">{{$drink["genre"]}}</p>
+                                    <p class="card-text ">{{$drink["category"]}}</p>
                                 </div>
                                 <a href="/Drink/{{$drink["id"]}}" class="btn stretched-link"></a>
                             </div>
