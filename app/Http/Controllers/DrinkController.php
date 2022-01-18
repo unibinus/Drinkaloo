@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class GameController extends Controller
+class DrinkController extends Controller
 {
     //
     public function index(){

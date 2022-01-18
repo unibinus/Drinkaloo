@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Game;
+use App\Models\Drink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -15,26 +15,26 @@ class CartController extends Controller
         $userID = $userSession['id'];
         $cookieCart = Cookie::get($userID.'cart');
         $cart = json_decode($cookieCart);
-        $g = new Game();
-        $gameIDs =[];
+        $g = new Drink();
+        $drinkIDs =[];
         for ($i=0; $i < sizeof($cart) ; $i++) {
-            //ambil id game dari cart
-            array_push($gameIDs,$cart[$i]->game_id);
+            //ambil id drink dari cart
+            array_push($drinkIDs,$cart[$i]->drink_id);
         }
         // query
-        $games = $g->whereIn('id',$gameIDs)->get();
+        $drinks = $g->whereIn('id',$drinkIDs)->get();
         $totalPrice = 0;
-        for($i = 0; $i < sizeof($games); $i++) {
-            $totalPrice += $games[$i]->price;
+        for($i = 0; $i < sizeof($drinks); $i++) {
+            $totalPrice += $drinks[$i]->price;
         }
-        return view('shoppingcart',compact('games','totalPrice'));
+        return view('shoppingcart',compact('drinks','totalPrice'));
     }
     public function deleteItemCart(Request $request){
         $userSession = session('mySession','default');
-        $gameID = $request->id;
+        $drinkID = $request->id;
         $userID = $userSession['id'];
         $c = new Cart();
-        $c->where('game_id','LIKE',$gameID)->where('user_id','LIKE',$userID)->delete();
+        $c->where('drink_id','LIKE',$drinkID)->where('user_id','LIKE',$userID)->delete();
         $arrCarts = $c->where('user_id','LIKE',$userID)->get();
         $newCarts = json_encode($arrCarts);
         Cookie::queue($userID."cart",$newCarts,0);
@@ -44,13 +44,13 @@ class CartController extends Controller
 
         $userSession = session('mySession','default');
         $c = new Cart();
-        $gameID = (int) $id;
+        $drinkID = (int) $id;
         $userID = $userSession['id'];
-        $gameExistInCart = $c->where('user_id','LIKE',$userID)->where('game_id','LIKE',$gameID)->first();
-        if($gameExistInCart){
-            return back()->with('Error','This game already in your cart');
+        $drinkExistInCart = $c->where('user_id','LIKE',$userID)->where('drink_id','LIKE',$drinkID)->first();
+        if($drinkExistInCart){
+            return back()->with('Error','This drink already in your cart');
         }
-        $c->game_id = $gameID;
+        $c->drink_id = $drinkID;
         $c->user_id = $userID;
         $c->save();
         //create
@@ -66,6 +66,6 @@ class CartController extends Controller
         $newCarts = json_encode($arrCarts);
         //insert cookie
         Cookie::queue($userID."cart",$newCarts,0);
-        return back()->with('Success','This game has been added to your cart');
+        return back()->with('Success','This drink has been added to your cart');
     }
 }
