@@ -124,6 +124,7 @@ class TransactionController extends Controller
         //init var
         $userSession = Session('mySession','default');
         $u = new User();
+        $c = new Cart();
         $user = $u->where('id','LIKE',$userSession['id'])->first();
         $cookieCart = Cookie::get($user->id.'cart');
         $cart = json_decode($cookieCart);
@@ -146,24 +147,24 @@ class TransactionController extends Controller
             $td = new TransactionDetail();
             $td->header_transaction_id = $ht->id;
             $td->drink_id = $cart[$i]->drink_id;
+            $td->quantity = $cart[$i]->quantity;
             $td->save();
         }
 
-        //add level user
-        $user->level += sizeof($cart);
-        $user->save();
+        // //add level user
+        // $user->level += sizeof($cart);
+        // $user->save();
 
         //refresh session
         $attr = $user->getAttributes();
         $request->session()->put('mySession', $attr);
 
         //clear cart
-        $c = new Cart();
         $c->where('user_id','LIKE',$user->id)->whereIn('drink_id',$drinkIDs)->delete();
-
-        $cart = [];
-        $newCarts = json_encode($cart);
-        Cookie::queue($user->id."cart",$newCarts,0);
+        // dd("DELET",$drinkIDs,$user->id);
+        // $cart = [];
+        // $newCarts = json_encode($cart);
+        // Cookie::queue($user->id."cart",$newCarts,0);
         Session::put('transactionSession', $ht->id);
         return redirect('/TransactionReceipt');
     }
@@ -174,30 +175,25 @@ class TransactionController extends Controller
         $transactionReceipt = [];
         if($transactionID != 'default'){
 
-            $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->where('id','LIKE',$transactionID)->get();
+            $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->where('id','LIKE',$transactionID)->first();
 
-
-            //Loop sebanyak transactions yang dimiliki user
-            for($i=0; $i<sizeOf($transactions); $i++){
-                $detailDrink = $transactions[$i]->drinks;
-                $totalPrice = 0;
-
-                //Loop sebanyak drink yang dibeli user dalam 1 transaksi
-                for($j=0; $j<sizeOf($detailDrink); $j++){
-                    $totalPrice += $detailDrink[$j]->price;
-                }
+            //loop dari transaction sekarang
+            $transactionDetails = $transactions->transactionDetail;
+            // dd($transactions, sizeOf($transactionDetails),$transactionDetails);
+            $totalPrice = 0;
+            for($i = 0; $i < sizeOf($transactionDetails); $i++){
+                // dd($transactionDetails[$i]->drink, $transactionDetails[$i]->quantity * $transactionDetails[$i]->drink->price);
                 $temp = [
-                    'transactionID' => $transactions[$i]->id,
-                    'purchaseDate' => $transactions[$i]->created_at,
-                    'drinks' =>  $detailDrink,
-                    'totalPrice' => $totalPrice,
+                    'drink' => $transactionDetails[$i]->drink,
+                    'quantity' => $transactionDetails[$i]->quantity,
+                    'subTotal' => $transactionDetails[$i]->quantity * $transactionDetails[$i]->drink->price,
                 ];
-
-                array_push($transactionReceipt, $temp);
-                //delete session
-                $request->session()->forget('transactionSession');
+                $totalPrice += $temp['subTotal'];
+                array_push($transactionReceipt,$temp);
             }
+            // dd($transactionReceipt);
+            $request->session()->forget('transactionSession');
         }
-        return view('transactionreceipt',compact('transactionReceipt'));
+        return view('transactionreceipt',compact('transactions','transactionReceipt','totalPrice'));
     }
 }
