@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('fullName');
             $table->string('password');
             $table->string('profilePic');
-            $table->integer('level');
+            // $table->integer('level');
             $table->rememberToken();
             $table->timestamps();
         });

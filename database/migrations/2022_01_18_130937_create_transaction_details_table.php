@@ -15,8 +15,8 @@ class CreateTransactionDetailsTable extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->foreignId('header_transaction_id')->constrained('header_transactions')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('game_id')->constrained('games')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreignId('drink_id')->constrained('drinks')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
