@@ -65,7 +65,7 @@
             </form>
          </div>
          <div class="col ">
-            <img src="{{Storage::url('public/images/RegisterImage.jpg')}}" height="103%" width="103%" alt="">
+            <img src="{{Storage::url('public/RegisterImage.jpg')}}" height="103%" width="103%" alt="">
          </div>
     </div>
 

@@ -36,27 +36,7 @@ class DrinkController extends Controller
             return back();
         }
         $userSession = Session('mySession','default');
-        $drinkOwned = false;
-        if($userSession != 'default'){
-            //check si user ada drinknya atau ga
-            $hd = new HeaderTransaction();
-            //trans bisa lebih dari 1
-            $headerTransactionIDs = $hd->where('user_id','LIKE',$userSession['id'])->get();
-            // transDetail
-            $drinksOwnedByUser = [];
-            for($i = 0; $i < sizeOf($headerTransactionIDs); $i++){
-                $drinks = $headerTransactionIDs[$i]->drinks;
-                for($j = 0; $j < sizeOf($drinks); $j++){
-                    $drink = $drinks[$j]->id;
-                    array_push($drinksOwnedByUser,$drink);
-                }
-            }
-            //check user have the drink or not
-            if(in_array($request->id,$drinksOwnedByUser)){
-                $drinkOwned = true;
-            }
-        }
-        return view('drinkdetail',compact('drinkDetail','drinkOwned'));
+        return view('drinkdetail',compact('drinkDetail'));
     }
 
     public function checkAgeIndex(Request $request){
