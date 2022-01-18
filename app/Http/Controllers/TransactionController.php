@@ -126,8 +126,9 @@ class TransactionController extends Controller
         $u = new User();
         $c = new Cart();
         $user = $u->where('id','LIKE',$userSession['id'])->first();
-        $cookieCart = Cookie::get($user->id.'cart');
-        $cart = json_decode($cookieCart);
+        $cart = $c->where('user_id','LIKE',$userSession['id'])->get();
+        // $cookieCart = Cookie::get($user->id.'cart');
+        // $cart = json_decode($cookieCart);
         if(sizeOf($cart) == 0){
             return back();
         }
@@ -160,8 +161,8 @@ class TransactionController extends Controller
         $request->session()->put('mySession', $attr);
 
         //clear cart
-        $c->where('user_id','LIKE',$user->id)->whereIn('drink_id',$drinkIDs)->delete();
         // dd("DELET",$drinkIDs,$user->id);
+        $c->where('user_id','LIKE',$user->id)->whereIn('drink_id',$drinkIDs)->delete();
         // $cart = [];
         // $newCarts = json_encode($cart);
         // Cookie::queue($user->id."cart",$newCarts,0);
@@ -173,6 +174,9 @@ class TransactionController extends Controller
         $transactionID = Session('transactionSession','default');
         $ht = new HeaderTransaction();
         $transactionReceipt = [];
+        $transactions = null;
+        $totalPrice = 0;
+
         if($transactionID != 'default'){
 
             $transactions = $ht->where('user_id', 'LIKE', $userSession['id'])->where('id','LIKE',$transactionID)->first();
@@ -180,7 +184,6 @@ class TransactionController extends Controller
             //loop dari transaction sekarang
             $transactionDetails = $transactions->transactionDetail;
             // dd($transactions, sizeOf($transactionDetails),$transactionDetails);
-            $totalPrice = 0;
             for($i = 0; $i < sizeOf($transactionDetails); $i++){
                 // dd($transactionDetails[$i]->drink, $transactionDetails[$i]->quantity * $transactionDetails[$i]->drink->price);
                 $temp = [
