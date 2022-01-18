@@ -1,0 +1,164 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #c7d5e0;
+}
+
+.footer{
+    color: #fff;
+    font-size: small;
+}
+
+.body-container{
+    margin: 10pt;
+}
+
+h1{
+    color: black;
+    opacity: 60%;
+    margin-top: 20pt;
+    margin-bottom: 10pt;
+    font-weight: bold;
+}
+
+/* util */
+.bold-900{
+    font-weight: 900;
+}
+.border-rad-10{
+    border-radius: 10px !important;
+}
+
+.border-rad-20{
+    border-radius: 20px !important;
+}
+.btn-focus-none:focus{
+    box-shadow: none !important;
+}
+.darkgray-color{
+    color: #374151 !important;
+}
+
+.darkgray-background-color{
+    background-color:#374151 !important;
+}
+
+.gray-background-color{
+    background-color:#A1A7B3 !important;
+}
+
+.gray-color{
+    color:#A1A7B3;
+}
+
+.hide{
+    display: none;
+}
+
+.hr-dark-style{
+    border: 1px solid #374151 !important;
+    opacity: 1;
+}
+.hr-light-style{
+    border: 1px solid #fff !important;
+    opacity: 1;
+}
+.icon-16{
+    width: 16px;
+    height: 16px;
+}
+.light-gray-background-color{
+    background-color: #E5E7EB !important;
+}
+.ozone-background-color{
+    background-color: #c7d5e0 !important;
+}
+
+.vr {
+    width: 1px;
+    min-height: 2rem;
+    opacity: 1;
+}
+
+.width-300{
+    width: 300px;
+}
+
+.width-500{
+    width: 500px;
+}
+
+
+/* home */
+.card-style{
+    background-color: transparent !important;
+    background-clip: none !important;
+    border: none !important;
+}
+.dark-theme-form{
+    background-color: #374151;
+    color:#A1A7B3;
+    /* remove white border */
+    border: none !important;
+}
+.dark-theme-form:focus{
+    background: #374151;
+    color: white;
+    /* remove shadow on focus*/
+    box-shadow: none !important;
+}
+.light-theme-form{
+    background-color: white;
+    color:#A1A7B3;
+    /* remove white border */
+    border: none !important;
+}
+
+.light-theme-form:focus{
+    background: white;
+    color: black;
+    /* remove shadow on focus*/
+    box-shadow: none !important;
+
+}
+
+/* Detail */
+.add-to-cart{
+    top: 60% !important;
+    left: 80% !important;
+}
+
+.bread-crump-divider{
+    --bs-breadcrumb-divider: '>';
+}
+
+.divider-padding::before{
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+}
+
+/* manage game */
+.circle-icon-danger{
+    background-color: #FEE2E2 !important;
+    color: #D81212 !important;
+    border-radius: 100% !important;
+}
+
+.circle-icon-create{
+    background-color: rgb(97, 57, 191);
+    color: white;
+    border-radius: 100% !important;
+}
+
+.circle-icon-create:hover{
+    color: white;
+}
+
+/* create game */
+.upload-image{
+    height: 200px;
+    border: dashed white;
+    background-color: transparent !important;
+    justify-content: center;
+}
+
+/* cart */

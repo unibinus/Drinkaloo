@@ -1,0 +1,33 @@
+body{
+    color: #FFF;
+    background-color: #171a21;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sub-container-login{
+    margin: 100pt;
+}
+
+.sub-container-regis{
+    margin: 100pt;
+    margin-top: 50pt;
+    
+}
+
+h1{
+    font-size: xx-large;
+    font-weight: 900;
+    margin-bottom: 20pt;
+}
+
+.btn{
+    background-color: rgb(97, 57, 191);
+    color: #fff;
+}
+
+.link{
+    color: rgb(97, 57, 191);
+    text-decoration: none;
+    font-size: small;
+    font-weight: 500;
+}
