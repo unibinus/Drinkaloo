@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
+use App\Models\Drink;
 use App\Models\HeaderTransaction;
 use App\Models\TransactionDetail;
 use DateTime;
@@ -17,22 +17,22 @@ class DrinkController extends Controller
 {
     //
     public function index(){
-        $game = new Game();
-        $randomGames = $game->inRandomOrder()->limit(8)->get();
-        return view('home', compact('randomGames'));
+        $drink = new Drink();
+        $randomdrinks = $drink->inRandomOrder()->limit(8)->get();
+        return view('home', compact('randomdrinks'));
     }
 
-    public function searchGame(Request $request){
-        $game = new Game();
-        $games = $game->where('name','LIKE', "%$request->search%")->paginate(8);
-        // dd($games);
-        return view('search',compact('games'));
+    public function searchDrink(Request $request){
+        $drink = new Drink();
+        $drinks = $drink->where('name','LIKE', "%$request->search%")->paginate(8);
+        // dd($drinks);
+        return view('search',compact('drinks'));
     }
 
-    public function gameDetail(Request $request){
-        $game = new Game();
-        $gameDetail = $game->where('id','LIKE',$request->id)->first();
-        if($gameDetail == null){
+    public function drinkDetail(Request $request){
+        $drink = new Drink();
+        $drinkDetail = $drink->where('id','LIKE',$request->id)->first();
+        if($drinkDetail == null){
             return back();
         }
         //get session
@@ -46,28 +46,28 @@ class DrinkController extends Controller
 
         //check user's game
         $userSession = Session('mySession','default');
-        $gameOwned = false;
+        $drinkOwned = false;
         if($userSession != 'default'){
 
-            //check si user ada gamenya atau ga
+            //check si user ada drinknya atau ga
             $hd = new HeaderTransaction();
             //trans bisa lebih dari 1
             $headerTransactionIDs = $hd->where('user_id','LIKE',$userSession['id'])->get();
             // transDetail
-            $gamesOwnedByUser = [];
+            $drinksOwnedByUser = [];
             for($i = 0; $i < sizeOf($headerTransactionIDs); $i++){
-                $games = $headerTransactionIDs[$i]->games;
-                for($j = 0; $j < sizeOf($games); $j++){
-                    $game = $games[$j]->id;
-                    array_push($gamesOwnedByUser,$game);
+                $drinks = $headerTransactionIDs[$i]->drinks;
+                for($j = 0; $j < sizeOf($drinks); $j++){
+                    $drink = $drinks[$j]->id;
+                    array_push($drinksOwnedByUser,$drink);
                 }
             }
-            //check user have the game or not
-            if(in_array($request->id,$gamesOwnedByUser)){
-                $gameOwned = true;
+            //check user have the drink or not
+            if(in_array($request->id,$drinksOwnedByUser)){
+                $drinkOwned = true;
             }
         }
-        return view('gamedetail',compact('gameDetail','gameOwned'));
+        return view('drinkdetail',compact('drinkDetail','drinkOwned'));
     }
 
     public function checkAgeIndex(Request $request){
@@ -75,10 +75,10 @@ class DrinkController extends Controller
         return view('checkage');
     }
 
-    public function checkAge(Request $request, $gameid){
-        $game = new Game();
-        $gameExist = $game->where('id','LIKE',$gameid)->first();
-        if(!$gameExist){
+    public function checkAge(Request $request, $drinkid){
+        $drink = new Drink();
+        $drinkExist = $drink->where('id','LIKE',$drinkid)->first();
+        if(!$drinkExist){
             return back();
         }
         $dobUser = DateTime::createFromFormat('j/n/Y',$request->day.'/'.$request->month.'/'.$request->year);
@@ -86,56 +86,56 @@ class DrinkController extends Controller
         //ubah ke year format
         $userAge = $currTime->diff($dobUser)->format('%y');
         if($userAge < 17){
-            return redirect('/')->with('Error','Sorry the game content is inappropriate for your current age');
+            return redirect('/')->with('Error','Sorry the drink content is inappropriate for your current age');
         }
         //valid, create session
         // $request->session()->put('checkAgeSession', 'valid');
         Cookie::queue('ValidAge', 'Valid', 0);
-        return redirect("/Game"."/".$gameExist->id);
+        return redirect("/Drink"."/".$drinkExist->id);
     }
 
-    public function manageGameIndex(){
-        $g = new Game();
-        $games = Game::paginate(8);
-        // dd($games);
+    public function manageDrinkIndex(){
+        $g = new Drink();
+        $drinks = drink::paginate(8);
+        // dd($drinks);
 
-        return view('managegame',compact('games'));
+        return view('managedrink',compact('drinks'));
     }
-    public function filterGame(Request $request){
+    public function filterDrink(Request $request){
         //array
         $selected = $request->filterCheckbox;
-        $gameName = $request->search;
-        // dd($gameName);
-        $g = new Game();
-        $gameList = [];
-        //if filter check box not null dan ada query game name
-        if($selected && $gameName){
+        $drinkName = $request->search;
+        // dd($drinkName);
+        $g = new Drink();
+        $drinkList = [];
+        //if filter check box not null dan ada query drink name
+        if($selected && $drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
-                $queryRes = $g->where('name','LIKE',"%$gameName%")->where('genre','LIKE',$selected[$i])->get();
+                $queryRes = $g->where('name','LIKE',"%$drinkName%")->where('genre','LIKE',$selected[$i])->get();
                 for($j = 0; $j < sizeof($queryRes); $j++){
-                    array_push($gameList,$queryRes[$j]->getAttributes());
+                    array_push($drinkList,$queryRes[$j]->getAttributes());
                 }
             }
         }
-        //if filter check box not null dan ga ada query game name
-        else if($selected && !$gameName){
+        //if filter check box not null dan ga ada query drink name
+        else if($selected && !$drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
                 $queryRes = $g->where('genre','LIKE',$selected[$i])->get();
                 for($j = 0; $j < sizeof($queryRes); $j++){
-                    array_push($gameList,$queryRes[$j]->getAttributes());
+                    array_push($drinkList,$queryRes[$j]->getAttributes());
                 }
             }
         }
-        //if filter check box null dan ada query game name
-        else if(!$selected && $gameName){
-            $queryRes = $g->where('name','LIKE',"%$gameName%")->get();
+        //if filter check box null dan ada query drink name
+        else if(!$selected && $drinkName){
+            $queryRes = $g->where('name','LIKE',"%$drinkName%")->get();
             for($j = 0; $j < sizeof($queryRes); $j++){
-                array_push($gameList,$queryRes[$j]->getAttributes());
+                array_push($drinkList,$queryRes[$j]->getAttributes());
             }
         }
-        //if filter check box null dan query game name kosong
+        //if filter check box null dan query drink name kosong
         else{
-            return redirect('/ManageGame');
+            return redirect('/ManageDrink');
         }
 
         //default first page
@@ -148,64 +148,52 @@ class DrinkController extends Controller
         $limit = 8;
         // slice array gameList, dengan offset (mulai dari suatu index), dan limit sebanyak 8 data saja
         // misal nyampai page 2, maka 8 game yang di page 1 di skip
-        $data = array_slice($gameList, ($currentPage - 1) * $limit, $limit);
+        $data = array_slice($drinkList, ($currentPage - 1) * $limit, $limit);
         $queryString = [
             'path' => $request->url(),
         ];
         //buat custom paginator, lengthawarepaginator mirip dengan paginate
         // parameter: array data, ukuran data, limit berapa item per page, nampilin halaman berapa sekarang, untuk querystring
-        $games = new LengthAwarePaginator($data, sizeOf($gameList), $limit, $currentPage, $queryString);
-        // dd($games);
-        return view('managegame',compact('games'));
+        $drinks = new LengthAwarePaginator($data, sizeOf($drinkList), $limit, $currentPage, $queryString);
+        // dd($drinks);
+        return view('managedrink',compact('drinks'));
     }
-    public function deleteGame(Request $request){
-        $gameID = $request->id;
-        $g = new Game();
-        $game = $g->where('id','LIKE',$gameID)->first();
-        if($game != null){
-            //delete gamenya
-            $game->delete();
-            //delete game picture yang ada distorage
-            Storage::delete($game->picture);
+    public function deletedrink(Request $request){
+        $drinkID = $request->id;
+        $g = new Drink();
+        $drink = $g->where('id','LIKE',$drinkID)->first();
+        if($drink != null){
+            //delete drinknya
+            $drink->delete();
+            //delete drink picture yang ada distorage
+            Storage::delete($drink->picture);
         }
         return back();
     }
-    public function createGameIndex(){
-        return view('creategame');
+    public function createDrinkIndex(){
+        return view('createdrink');
     }
-    public function createGame(Request $request){
+    public function createDrink(Request $request){
         $rules = [
-            'name' => 'required|unique:games,name',
+            'name' => 'required|unique:drinks,name',
             'description' => 'required|max:500',
-            'longDescription' => 'required|max:2000',
             'category' => 'required',
-            'developer' => 'required',
-            'publisher' => 'required',
             'price' => 'required|numeric|max:1000000',
             'cover' => 'required|file|mimes:jpg|max:100',
-            'trailer' => 'required|file|mimes:webm|max:102400',
         ];
         $errorMsg = [
-            'name.required' => 'Game name cannot be empty.',
-            'name.unique' => 'Game name must be unique.',
-            'description.required' => 'Game description cannot be empty.',
-            'description.max' => 'Game description must be less than 500 characters.',
-            'longDescription.required' => 'Game long description cannot be empty.',
-            'longDescription.max' => 'Game long description must be less than 2000 characters.',
-            'category.required' => 'Game category must be chosen.',
-            'developer.required' => 'Game developer cannot be empty.',
-            'publisher.required' => 'Game publisher cannot be empty.',
-            'price.required' => 'Game price cannot be empty.',
-            'price.numeric' => 'Game price must be numeric.',
-            'price.max' => 'Game price must be less than 1 million.',
-            'cover.required' => 'Game cover cannot be empty.',
-            'cover.file' => 'Game cover upload has failed ',
-            'cover.mimes' => 'Game cover extension must be jpg file.',
-            'cover.max' => 'Game cover size must be less than 100 kilobytes.',
-            'trailer.required' => 'Game trailer cannot be empty.',
-            'trailer.file' => 'Game trailer upload has failed ',
-            'trailer.mimes' => 'Game trailer extension must be webm file.',
-            'trailer.max' => 'Game cover size must be less than 100 megabytes.',
+            'name.required' => 'Drink name cannot be empty.',
+            'name.unique' => 'Drink name must be unique.',
+            'description.required' => 'Drink description cannot be empty.',
+            'description.max' => 'Drink description must be less than 500 characters.',
+            'category.required' => 'Drink category must be chosen.',
+            'price.required' => 'Drink price cannot be empty.',
+            'price.numeric' => 'Drink price must be numeric.',
+            'price.max' => 'Drink price must be less than 1 million.',
+            'cover.required' => 'Drink cover cannot be empty.',
+            'cover.file' => 'Drink cover upload has failed ',
+            'cover.mimes' => 'Drink cover extension must be jpg file.',
+            'cover.max' => 'Drink cover size must be less than 100 kilobytes.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $errorMsg);
@@ -213,109 +201,80 @@ class DrinkController extends Controller
             return back()->withErrors($validator);
         }
         // dd($formatDate);
-        $g = new Game();
+        $g = new Drink();
         $g->name = $request->name;
         $g->genre = $request->category;
         //cover
-        $gameName = str_replace(" ","",$request->name);
+        $drinkName = str_replace(" ","",$request->name);
         $cover = $request->cover;
-        $coverName = $gameName.".".$cover->getClientOriginalExtension();
+        $coverName = $drinkName.".".$cover->getClientOriginalExtension();
         Storage::putFileAs('public/images', $cover, $coverName);
         $g->picture = 'public/images/'.$coverName;
         //trailer
-        $trailer = $request->trailer;
-        $trailerName = $gameName.'.'.$trailer->getClientOriginalExtension();
-        // dd($trailerName);
-        Storage::putFileAs('public/trailers', $trailer, $trailerName);
-        $g->video = 'public/trailers/'.$trailerName;
 
         $g->description = $request->description;
-        $g->longDescription = $request->longDescription;
         $currentDate = new DateTime("now");
         $g->releaseDate = $currentDate->format('Y-n-j');
-        $g->developer = $request->developer;
-        $g->publisher = $request->publisher;
         $g->price = $request->price;
         $g->adultsOnly = $request->adultChk ? 1 : 0;
         $g->save();
-        return redirect('/ManageGame')->with('Success','Game has been created successfully');
+        return redirect('/ManageDrink')->with('Success','Drink has been created successfully');
 
     }
-    public function updateGameIndex($id){
-        $g = new Game();
-        $gameDetail = $g->where('id','LIKE',$id)->first();
-        if($gameDetail == null){
+    public function updateDrinkIndex($id){
+        $g = new Drink();
+        $drinkDetail = $g->where('id','LIKE',$id)->first();
+        if($drinkDetail == null){
             return back();
         }
-        return view('updategame',compact('gameDetail'));
+        return view('updatedrink',compact('drinkDetail'));
     }
-    public function UpdateGame(Request $request){
+    public function UpdateDrink(Request $request){
         $rules = [
             'description' => 'required|max:500',
-            'longDescription' => 'required|max:2000',
             'category' => 'required',
             'price' => 'required|numeric|max:1000000',
             'cover' => 'nullable|file|mimes:jpg|max:100',
-            'trailer' => 'nullable|file|mimes:webm|max:102400',
         ];
         $errorMsg = [
-            'description.required' => 'Game description cannot be empty.',
-            'description.max' => 'Game description must be less than 500 characters.',
-            'longDescription.required' => 'Game long description cannot be empty.',
-            'longDescription.max' => 'Game long description must be less than 2000 characters.',
-            'category.required' => 'Game category must be chosen.',
-            'price.required' => 'Game price cannot be empty.',
-            'price.numeric' => 'Game price must be numeric.',
-            'price.max' => 'Game price must be less than 1 million.',
-            'cover.file' => 'Game cover upload has failed ',
-            'cover.mimes' => 'Game cover extension must be jpg file.',
-            'cover.max' => 'Game cover size must be less than 100 kilobytes.',
-            'trailer.file' => 'Game trailer upload has failed ',
-            'trailer.mimes' => 'Game trailer extension must be webm file.',
-            'trailer.max' => 'Game cover size must be less than 100 megabytes.',
+            'description.required' => 'Drink description cannot be empty.',
+            'description.max' => 'Drink description must be less than 500 characters.',
+            'category.required' => 'Drink category must be chosen.',
+            'price.required' => 'Drink price cannot be empty.',
+            'price.numeric' => 'Drink price must be numeric.',
+            'price.max' => 'Drink price must be less than 1 million.',
+            'cover.file' => 'Drink cover upload has failed ',
+            'cover.mimes' => 'Drink cover extension must be jpg file.',
+            'cover.max' => 'Drink cover size must be less than 100 kilobytes.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $errorMsg);
         if($validator->fails()){
             return back()->withErrors($validator);
         }
-        $g = new Game();
-        $game = $g->where('id','LIKE',$request->id)->first();
-        $game->name = $game->name;
-        $game->genre = $request->category;
+        $g = new Drink();
+        $drink = $g->where('id','LIKE',$request->id)->first();
+        $drink->name = $drink->name;
+        $drink->genre = $request->category;
         //cover
-        $gameName = str_replace(" ","",$game->name);
+        $drinkName = str_replace(" ","",$drink->name);
         $cover = $request->cover;
         if($cover != null){
 
-            $coverName = $gameName.".".$cover->getClientOriginalExtension();
+            $coverName = $drinkName.".".$cover->getClientOriginalExtension();
             Storage::putFileAs('public/images', $cover, $coverName);
-            $game->picture = 'public/images/'.$coverName;
+            $drink->picture = 'public/images/'.$coverName;
         }
         else{
-            $game->picture = $game->picture;
-        }
-        //trailer
-        $trailer = $request->trailer;
-        if($trailer != null){
-            $trailerName = $gameName.'.'.$trailer->getClientOriginalExtension().'Trailer';
-            // dd($trailerName);
-            Storage::putFileAs('public/trailers', $trailer, $trailerName);
-            $game->video = 'public/trailers/'.$trailerName;
-        }
-        else{
-            $game->video = $game->video;
+            $drink->picture = $drink->picture;
         }
 
-        $game->description = $request->description;
-        $game->longDescription = $request->longDescription;
-        $game->releaseDate = $game->releaseDate;
-        $game->developer = $game->developer;
-        $game->publisher = $game->publisher;
-        $game->price = $request->price;
-        $game->adultsOnly = $game->adultsOnly;
-        $game->save();
-        return redirect('/ManageGame')->with('Success','Game has been updated successfully');
+        $drink->description = $request->description;
+        $drink->releaseDate = $drink->releaseDate;
+        $drink->price = $request->price;
+        $drink->adultsOnly = $drink->adultsOnly;
+        $drink->save();
+        return redirect('/ManageDrink')->with('Success','Drink has been updated successfully');
 
     }
 }
