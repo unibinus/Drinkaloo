@@ -84,10 +84,6 @@
 
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div>
-                    Total Price <span class="fw-bold">Rp. {{number_format($totalPrice,0,'.','.')}}</span>
-
-                </div>
-                <div>
                     <a href="/Cart" class="btn btn-light py-2 px-3 me-3"><strong class="text-muted">Cancel</strong></a>
                     <button type="submit" class="btn py-2 px-3 light-gray-background-color"><i class="fas fa-truck me-2"></i><strong>Check Out</strong></button>
                 </div>

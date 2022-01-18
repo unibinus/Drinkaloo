@@ -27,7 +27,6 @@
             <div class="row row-cols-auto">
                 <div class="col ps-0">
                     <div class="form-check form-check-inline">
-                        {{-- dalam bentuk array, biar bisa dipilih dan dapetin multiple value --}}
                         <input class="form-check-input" type="checkbox" name="filterCheckbox[]" value="Alcohol">
                         <label class="form-check-label" for="inlineCheckbox1">Alcohol</label>
                     </div>

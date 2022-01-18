@@ -3,19 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Drink;
-use App\Models\HeaderTransaction;
-use App\Models\TransactionDetail;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class DrinkController extends Controller
 {
-    //
     public function index(){
         $drink = new Drink();
         $randomdrinks = $drink->inRandomOrder()->limit(8)->get();
@@ -25,7 +21,6 @@ class DrinkController extends Controller
     public function searchDrink(Request $request){
         $drink = new Drink();
         $drinks = $drink->where('name','LIKE', "%$request->search%")->paginate(8);
-        // dd($drinks);
         return view('search',compact('drinks'));
     }
 
@@ -52,13 +47,10 @@ class DrinkController extends Controller
         }
         $dobUser = DateTime::createFromFormat('j/n/Y',$request->day.'/'.$request->month.'/'.$request->year);
         $currTime = new DateTime("now");
-        //ubah ke year format
         $userAge = $currTime->diff($dobUser)->format('%y');
         if($userAge < 17){
             return redirect('/')->with('Error','Sorry the drink content is inappropriate for your current age');
         }
-        //valid, create session
-        // $request->session()->put('checkAgeSession', 'valid');
         Cookie::queue('ValidAge', 'Valid', 0);
         return redirect("/Drink"."/".$drinkExist->id);
     }
@@ -66,18 +58,13 @@ class DrinkController extends Controller
     public function manageDrinkIndex(){
         $g = new Drink();
         $drinks = drink::paginate(8);
-        // dd($drinks);
-
         return view('managedrink',compact('drinks'));
     }
     public function filterDrink(Request $request){
-        //array
         $selected = $request->filterCheckbox;
         $drinkName = $request->search;
-        // dd($drinkName);
         $g = new Drink();
         $drinkList = [];
-        //if filter check box not null dan ada query drink name
         if($selected && $drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
                 $queryRes = $g->where('name','LIKE',"%$drinkName%")->where('category','LIKE',$selected[$i])->get();
@@ -86,7 +73,6 @@ class DrinkController extends Controller
                 }
             }
         }
-        //if filter check box not null dan ga ada query drink name
         else if($selected && !$drinkName){
             for($i = 0; $i < sizeOf($selected); $i++){
                 $queryRes = $g->where('category','LIKE',$selected[$i])->get();
@@ -95,22 +81,17 @@ class DrinkController extends Controller
                 }
             }
         }
-        //if filter check box null dan ada query drink name
         else if(!$selected && $drinkName){
             $queryRes = $g->where('name','LIKE',"%$drinkName%")->get();
             for($j = 0; $j < sizeof($queryRes); $j++){
                 array_push($drinkList,$queryRes[$j]->getAttributes());
             }
         }
-        //if filter check box null dan query drink name kosong
         else{
             return redirect('/ManageDrink');
         }
-
-        //default first page
         $currentPage = 1;
         if($request->page != null){
-            // kalau ke page selanjutnya
             $currentPage = $request->page;
         }
 
@@ -120,10 +101,7 @@ class DrinkController extends Controller
         $queryString = [
             'path' => $request->url(),
         ];
-        //buat custom paginator, lengthawarepaginator mirip dengan paginate
-        // parameter: array data, ukuran data, limit berapa item per page, nampilin halaman berapa sekarang, untuk querystring
         $drinks = new LengthAwarePaginator($data, sizeOf($drinkList), $limit, $currentPage, $queryString);
-        // dd($drinks);
         return view('managedrink',compact('drinks'));
     }
     public function deletedrink(Request $request){
@@ -131,9 +109,7 @@ class DrinkController extends Controller
         $g = new Drink();
         $drink = $g->where('id','LIKE',$drinkID)->first();
         if($drink != null){
-            //delete drinknya
             $drink->delete();
-            //delete drink picture yang ada distorage
             Storage::delete($drink->picture);
         }
         return back();
@@ -172,19 +148,15 @@ class DrinkController extends Controller
         if($validator->fails()){
             return back()->withErrors($validator);
         }
-        // dd($formatDate);
         $g = new Drink();
         $g->name = $request->name;
         $g->category = $request->category;
-        //cover
         $drinkName = str_replace(" ","",$request->name);
 
         $cover = $request->cover;
         $coverName = $drinkName.".".$cover->getClientOriginalExtension();
         Storage::putFileAs('public/images', $cover, $coverName);
         $g->picture = 'public/images/'.$coverName;
-        //trailer
-
         $g->description = $request->description;
         $g->price = $request->price;
         $g->quantity = $request->quantity;
@@ -228,7 +200,6 @@ class DrinkController extends Controller
         $drink = $g->where('id','LIKE',$request->id)->first();
         $drink->name = $drink->name;
         $drink->category = $request->category;
-        //cover
         $drinkName = str_replace(" ","",$drink->name);
         $cover = $request->cover;
         if($cover != null){
