@@ -21,7 +21,7 @@ class UserSeeder extends Seeder{
             'role_id' => 2,
             'fullName' => 'Budi Sukses',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder{
             'role_id' => 2,
             'fullName' => 'Tintin Sutintin',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder{
             'role_id' => 1,
             'fullName' => 'Jajang Sujajang',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder{
             'role_id' => 1,
             'fullName' => 'Dedeng Sudedeng',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder{
             'role_id' => 2,
             'fullName' => 'George',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder{
             'role_id' => 2,
             'fullName' => 'Testing',
             'password' => Hash::make('password'),
-            'profilePic' => 'public/images/pic1.jpg',
+            'profilePic' => 'public/pic1.jpg',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ],
