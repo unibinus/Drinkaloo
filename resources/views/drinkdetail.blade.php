@@ -28,7 +28,7 @@
     <nav class="bread-crump-divider" aria-label="breadcrumb">
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item"><i class="fas fa-home"></i></li>
-      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$drinkDetail->genre}}</li>
+      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$drinkDetail->category}}</li>
       <li class="breadcrumb-item active divider-padding" aria-current="page">{{$drinkDetail->name}}</li>
     </ol>
   </nav>
@@ -36,15 +36,9 @@
         <div class="row">
             <img src="{{Storage::url($drinkDetail->picture)}}" class="border-rad-20" height="250px" alt="">
         </div>
-        <div class="my-1 row">
-            <p class="my-2 fs-5 text fw-bold">{{$drinkDetail->name}}</p>
-            <p class="m-0">
-                {{$drinkDetail->description}}
-            </p>
-        </div>
         <div class="my-2 row">
             <div class="d-flex">
-                <p class="m-0"><strong>Category: </strong> {{$drinkDetail->genre}} </p>
+                <p class="m-0"><strong>Category: </strong> {{$drinkDetail->category}} </p>
             </div>
         </div>
         <div class="my-2 row">
@@ -92,8 +86,6 @@
             </form>
         @endif
 
-
-
         <div>
             Buy {{$drinkDetail->name}}
         </div>
@@ -102,7 +94,7 @@
         <p class="fw-bold fs-5">ABOUT THIS DRINK</p>
         <hr class="hr-dark-style darkgray-background-color">
         <div>
-            {{$drinkDetail->longDescription}}
+            {{$drinkDetail->description}}
         </div>
     </div>
 </div>

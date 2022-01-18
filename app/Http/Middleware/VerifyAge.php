@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Game;
+use App\Models\Drink;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -18,15 +18,15 @@ class VerifyAge
      */
     public function handle(Request $request, Closure $next)
     {
-        $g = new Game();
-        $game = $g->where('id','LIKE',$request->id)->first();
-        if($game == null){
+        $g = new Drink();
+        $drink = $g->where('id','LIKE',$request->id)->first();
+        if($drink == null){
             return redirect('/');
         }
         $validAge = Cookie::get('ValidAge');
         // dd($validAge);
-        if($game->adultsOnly && $validAge == null){
-            return response()->view('checkage',compact('game'));
+        if($drink->adultsOnly && $validAge == null){
+            return response()->view('checkage',compact('drink'));
         }
         return $next($request);
     }

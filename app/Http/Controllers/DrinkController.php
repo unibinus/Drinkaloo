@@ -35,20 +35,9 @@ class DrinkController extends Controller
         if($drinkDetail == null){
             return back();
         }
-        //get session
-        // $checkAgeSession = session('checkAgeSession','default');
-        // // //invalid and game is adults only
-        // if($checkAgeSession == "default" && $gameDetail->adultsOnly){
-        //     //create temporary session for game detail
-        //     $request->session()->put('gameDetailSession', $gameDetail);
-        //     return redirect()->route('CheckAge');
-        // }
-
-        //check user's game
         $userSession = Session('mySession','default');
         $drinkOwned = false;
         if($userSession != 'default'){
-
             //check si user ada drinknya atau ga
             $hd = new HeaderTransaction();
             //trans bisa lebih dari 1
@@ -146,8 +135,7 @@ class DrinkController extends Controller
         }
 
         $limit = 8;
-        // slice array gameList, dengan offset (mulai dari suatu index), dan limit sebanyak 8 data saja
-        // misal nyampai page 2, maka 8 game yang di page 1 di skip
+
         $data = array_slice($drinkList, ($currentPage - 1) * $limit, $limit);
         $queryString = [
             'path' => $request->url(),

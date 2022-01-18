@@ -18,9 +18,9 @@
     @endif
     <div class="p-2">
         <h1>Top Drinks</h1>
-        @if (sizeOf($randomDrinks) > 0)
+        @if (sizeOf($randomdrinks) > 0)
         <div class="row row-cols-1 row-cols-md-4">
-            @foreach ( $randomDrinks as $drink)
+            @foreach ( $randomdrinks as $drink)
             <div class="col">
                 <div class="card card-style shadow-lg mb-5">
                         <img src="{{Storage::url($drink->picture)}}" class="border-rad-10 card-img opacity-50" width="300px" height="250px" alt="eurotruck">
