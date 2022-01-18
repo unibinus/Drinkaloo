@@ -25,9 +25,9 @@
                 <p class="mb-0">Transaction ID: {{$transaction['transactionID']}}</p>
                 <p>Purchase Date: {{$transaction['purchaseDate']}}</p>
 
-                @foreach($transaction['games'] as $game)
+                @foreach($transaction['drinks'] as $drink)
                 
-                <img src="{{Storage::url($game->picture)}}" class="me-1" height="100px" alt="">
+                <img src="{{Storage::url($drink->picture)}}" class="me-1" height="100px" alt="">
                 @endforeach
                 <p class="mt-2">Total Price: <strong>Rp. {{number_format($transaction['totalPrice'],0,'.','.')}}</strong></p>
             </div>

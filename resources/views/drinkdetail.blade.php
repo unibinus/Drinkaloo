@@ -28,52 +28,52 @@
     <nav class="bread-crump-divider" aria-label="breadcrumb">
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item"><i class="fas fa-home"></i></li>
-      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$gameDetail->genre}}</li>
-      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$gameDetail->name}}</li>
+      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$drinkDetail->genre}}</li>
+      <li class="breadcrumb-item active divider-padding" aria-current="page">{{$drinkDetail->name}}</li>
     </ol>
   </nav>
     <div class="">
         <div class="row">
-            <img src="{{Storage::url($gameDetail->picture)}}" class="border-rad-20" height="250px" alt="">
+            <img src="{{Storage::url($drinkDetail->picture)}}" class="border-rad-20" height="250px" alt="">
         </div>
         <div class="my-1 row">
-            <p class="my-2 fs-5 text fw-bold">{{$gameDetail->name}}</p>
+            <p class="my-2 fs-5 text fw-bold">{{$drinkDetail->name}}</p>
             <p class="m-0">
-                {{$gameDetail->description}}
+                {{$drinkDetail->description}}
             </p>
         </div>
         <div class="my-2 row">
             <div class="d-flex">
-                <p class="m-0"><strong>Category: </strong> {{$gameDetail->genre}} </p>
+                <p class="m-0"><strong>Category: </strong> {{$drinkDetail->genre}} </p>
             </div>
         </div>
         <div class="my-2 row">
             <div class="d-flex">
-                <p class="m-0"><strong>Release Date: </strong> {{date('F j, Y',strtotime($gameDetail->releaseDate))}}</p>
+                <p class="m-0"><strong>Release Date: </strong> {{date('F j, Y',strtotime($drinkDetail->releaseDate))}}</p>
             </div>
         </div>
     </div>
     <div class="p-4 shadow fw-bold my-4 position-relative bg-light">
 
-        {{-- Kalau admin atau member punya gamenya, maka hide add to cart--}}
+        {{-- Kalau admin atau member punya drinknya, maka hide add to cart--}}
         @if (Session::has('mySession'))
-            @if (Session::get('mySession')['role_id'] == 1 || $gameOwned)
-            <form action="AddToCart/{{$gameDetail->id}}" class="hide" method="POST">
+            @if (Session::get('mySession')['role_id'] == 1 || $drinkOwned)
+            <form action="AddToCart/{{$drinkDetail->id}}" class="hide" method="POST">
                 {{ csrf_field() }}
                 <div class="position-absolute add-to-cart">
                     {{-- top 70 left 85 --}}
-                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($gameDetail->price,0,'.','.')}}
+                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($drinkDetail->price,0,'.','.')}}
                         <div class="vr mx-3"></div>
                         <i class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
                 </div>
             </form>
             @else
-            {{-- user logged in belum punya game--}}
-            <form action="AddToCart/{{$gameDetail->id}}" method="POST">
+            {{-- user logged in belum punya drink--}}
+            <form action="AddToCart/{{$drinkDetail->id}}" method="POST">
                 {{ csrf_field() }}
                 <div class="position-absolute add-to-cart">
                     {{-- top 70 left 85 --}}
-                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($gameDetail->price,0,'.','.')}}
+                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($drinkDetail->price,0,'.','.')}}
                         <div class="vr mx-3"></div>
                         <i class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
                 </div>
@@ -81,11 +81,11 @@
             @endif
             @else
             {{-- guest--}}
-            <form action="AddToCart/{{$gameDetail->id}}" method="POST">
+            <form action="AddToCart/{{$drinkDetail->id}}" method="POST">
                 {{ csrf_field() }}
                 <div class="position-absolute add-to-cart">
                     {{-- top 70 left 85 --}}
-                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($gameDetail->price,0,'.','.')}}
+                    <button class="btn btn-dark d-flex align-items-center" type="submit">Rp. {{number_format($drinkDetail->price,0,'.','.')}}
                         <div class="vr mx-3"></div>
                         <i class="fas fa-shopping-cart me-2"></i> Add To Cart</button>
                 </div>
@@ -95,14 +95,14 @@
 
 
         <div>
-            Buy {{$gameDetail->name}}
+            Buy {{$drinkDetail->name}}
         </div>
     </div>
     <div class="pt-4">
-        <p class="fw-bold fs-5">ABOUT THIS GAME</p>
+        <p class="fw-bold fs-5">ABOUT THIS DRINK</p>
         <hr class="hr-dark-style darkgray-background-color">
         <div>
-            {{$gameDetail->longDescription}}
+            {{$drinkDetail->longDescription}}
         </div>
     </div>
 </div>

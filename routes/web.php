@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FriendController;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\ValidCart;
@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //home
-Route::get('/', [GameController::class,'index']);
-Route::get('/Search', [GameController::class,'searchGame']);
+Route::get('/', [DrinkController::class,'index']);
+Route::get('/Search', [DrinkController::class,'searchDrink']);
 
 //auth
 Route::get('/Login', [AuthController::class,'loginIndex'])->name('login')->middleware('logged.in');
@@ -37,28 +37,21 @@ Route::post('/Register', [AuthController::class,'registerForm'])->name('Register
 Route::get('/Profile', [ProfileController::class,'profileIndex'])->middleware('auth');
 Route::put('/Profile/Update', [ProfileController::class,'updateProfileForm'])->name('UpdateProfileForm');
 
-//Game
-Route::get('/Game/{id}',[GameController::class,'gameDetail'])->middleware('verify.age');
-Route::get('/CheckAge',[GameController::class,'checkAgeIndex'])->name('CheckAge');
-Route::post('/Game/CheckAge/{id}',[GameController::class,'checkAge'])->name('CheckAgeForm');
-Route::post('/Game/AddToCart/{id}',[CartController::class,'addToCart'])->middleware('auth');
-//Manage Game only Admin
-Route::get('/ManageGame',[GameController::class,'manageGameIndex'])->middleware(['auth','admin']);
-Route::get('/ManageGame/FilterGame',[GameController::class,'filterGame'])->name('FilterGame')->middleware(['auth','admin']);
-Route::delete('ManageGame/DeleteGame/{id}',[GameController::class,'deleteGame'])->name('DeleteGame')->middleware(['auth','admin']);
-Route::get('/UpdateGame/{id}',[GameController::class,'updateGameIndex'])->middleware(['auth','admin']);
-Route::put('/UpdateGame/{id}',[GameController::class,'updateGame'])->name('UpdateGame')->middleware(['auth','admin']);
-Route::get('/CreateGame',[GameController::class,'createGameIndex'])->middleware(['auth','admin']);
-Route::post('/CreateGame',[GameController::class,'createGame'])->name('CreateGame')->middleware(['auth','admin']);
+//Drink
+Route::get('/Drink/{id}',[DrinkController::class,'drinkDetail'])->middleware('verify.age');
+Route::get('/CheckAge',[DrinkController::class,'checkAgeIndex'])->name('CheckAge');
+Route::post('/Drink/CheckAge/{id}',[DrinkController::class,'checkAge'])->name('CheckAgeForm');
+Route::post('/Drink/AddToCart/{id}',[CartController::class,'addToCart'])->middleware('auth');
+//Manage Drink only Admin
+Route::get('/ManageDrink',[DrinkController::class,'manageDrinkIndex'])->middleware(['auth','admin']);
+Route::get('/ManageDrink/FilterDrink',[DrinkController::class,'filterDrink'])->name('FilterDrink')->middleware(['auth','admin']);
+Route::delete('ManageDrink/DeleteDrink/{id}',[DrinkController::class,'deleteDrink'])->name('DeleteDrink')->middleware(['auth','admin']);
+Route::get('/UpdateDrink/{id}',[DrinkController::class,'updateDrinkIndex'])->middleware(['auth','admin']);
+Route::put('/UpdateDrink/{id}',[DrinkController::class,'updateDrink'])->name('UpdateDrink')->middleware(['auth','admin']);
+Route::get('/CreateDrink',[DrinkController::class,'createDrinkIndex'])->middleware(['auth','admin']);
+Route::post('/CreateDrink',[DrinkController::class,'createDrink'])->name('CreateDrink')->middleware(['auth','admin']);
 
 //Cart
-
-//Friend
-Route::get('/Friend', [FriendController::class,'friendIndex'])->middleware(['auth','member']);
-Route::post('/Friend/AddFriend', [FriendController::class, 'addFriend'])->name('AddFriend')->middleware(['auth','member']);
-Route::post('/Friend/Cancel', [FriendController::class, 'cancelRequest'])->name('CancelRequest')->middleware(['auth','member']);
-Route::post('/Friend/Incoming', [FriendController::class, 'incomingRequest'])->name('IncomingRequest')->middleware(['auth','member']);
-
 //Transaction
 Route::get('/TransactionHistory', [TransactionController::class,'transactionHistory'])->middleware(['auth','member']);
 Route::get('/Cart', [CartController::class,'index'])->middleware(['auth','member']);

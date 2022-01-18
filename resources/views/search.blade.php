@@ -5,7 +5,7 @@
     <h1>Search Drinks</h1>
     @if (sizeOf($drinks) > 0)
     <div class="row row-cols-1 row-cols-md-4">
-        @foreach ( $drinks as $drink)
+        @foreach ($drinks as $drink)
         <div class="col">
             <div class="card card-style shadow-lg mb-5">
                     <img src="{{Storage::url($drink->picture)}}" class="border-rad-10 card-img opacity-50" width="300px" height="250px" alt="eurotruck">

@@ -86,7 +86,7 @@
                             <a class="nav-link text-light" href="/">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link text-light" href="/ManageGame">Manage Drink</a>
+                            <a class="nav-link text-light" href="/ManageDrink">Manage Drink</a>
                         </li>
                     </ul>
                     <div class="collapse navbar-collapse d-flex justify-content-end me-2">

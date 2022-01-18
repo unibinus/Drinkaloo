@@ -32,28 +32,28 @@
             </div>
             <div>
                 {{-- Purchased Date: 21-05-2021 07:20:40 --}}
-                {{-- Purchased Date: {{date('F j, Y',strtotime($gameDetail->releaseDate))}} --}}
+                {{-- Purchased Date: {{date('F j, Y',strtotime($drinkDetail->releaseDate))}} --}}
                 Purchased Date: {{date('j-m-Y H:i:s',strtotime($receipt['purchaseDate']))}}
 
             </div>
         </div>
-        @foreach ($receipt['games'] as $game)
+        @foreach ($receipt['drinks'] as $drink)
         <div class="row d-flex align-items-center border-bottom py-3">
 
             <div class="col">
-                <img src="{{Storage::url($game->picture)}}" width="300px" alt="">
+                <img src="{{Storage::url($drink->picture)}}" width="300px" alt="">
             </div>
 
             <div class="col-9">
                 <div class="d-flex align-items-center">
-                    <p class="fs-3 m-0 fw-bold">{{$game->name}}</p>
+                    <p class="fs-3 m-0 fw-bold">{{$drink->name}}</p>
                     <p class="mx-2 mb-0 p-1 bg-dark text-white rounded-pill">
-                        {{$game->genre}}
+                        {{$drink->genre}}
                     </p>
                 </div>
                 <div>
                     <i class="fas fa-tags"></i>
-                    <span class="mx-2">Rp. {{number_format($game->price,0,'.','.')}}</span>
+                    <span class="mx-2">Rp. {{number_format($drink->price,0,'.','.')}}</span>
                 </div>
             </div>
 

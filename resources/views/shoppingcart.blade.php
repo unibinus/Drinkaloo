@@ -20,12 +20,12 @@
     </div>
 
     <h2 class="my-4"><strong>Shopping Cart</strong></h2>
-    @if (sizeOf($games) > 0)
+    @if (sizeOf($drinks) > 0)
 
     <div class="bg-white">
         <div class="">
-            @foreach ($games as $game)
-            <div id="deleteCart{{$game["id"]}}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+            @foreach ($drinks as $drink)
+            <div id="deleteCart{{$drink["id"]}}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered ">
                     <div class="modal-content">
                         <div class="modal-body border-0">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="d-flex justify-content-end pb-4 pe-4">
                             <button type="button" class="btn btn-outline-dark mx-3" data-bs-dismiss="modal">Cancel</button>
-                            <form action="DeleteCart/{{$game["id"]}}" data-id="id" method="POST">
+                            <form action="DeleteCart/{{$drink["id"]}}" data-id="id" method="POST">
                                 @method("DELETE")
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -57,26 +57,26 @@
             <div class="row d-flex align-items-center border-bottom p-4">
 
                     <div class="col">
-                        <a href="/Game/{{$game->id}}">
-                            <img src="{{Storage::url($game->picture)}}" width="300px" alt="">
+                        <a href="/Drink/{{$drink->id}}">
+                            <img src="{{Storage::url($drink->picture)}}" width="300px" alt="">
                         </a>
 
                     </div>
                     <div class="col-8">
                         <div class="d-flex align-items-center">
-                            <p class="fs-3 m-0 fw-bold">{{$game->name}}</p>
+                            <p class="fs-3 m-0 fw-bold">{{$drink->name}}</p>
                             <p class="mx-2 mb-0 p-1 bg-dark text-white rounded-pill">
-                                {{$game->genre}}
+                                {{$drink->category}}
                             </p>
                         </div>
                         <div>
                             <i class="fas fa-tags"></i>
-                            <span class="mx-2">Rp. {{number_format($game->price,0,'.','.')}}</span>
+                            <span class="mx-2">Rp. {{number_format($drink->price,0,'.','.')}}</span>
 
                         </div>
                     </div>
                     <div class="col">
-                        <button class="btn light-gray-background-color text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteCart{{$game["id"]}}">
+                        <button class="btn light-gray-background-color text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteCart{{$drink["id"]}}">
                             <i class="fas fa-trash-alt me-2 icon-16"></i>Delete</button>
                     </div>
                 </div>
