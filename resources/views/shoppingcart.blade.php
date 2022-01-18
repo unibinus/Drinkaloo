@@ -37,8 +37,8 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <p class="fw-bold fs-5 mb-1">Delete Games</p>
-                                        <p>Are you sure you want to delete this game from your shopping cart ? All of your data will be permanently removed. This action cannot be undone.</p>
+                                        <p class="fw-bold fs-5 mb-1">Delete Drnks</p>
+                                        <p>Are you sure you want to delete this drink from your shopping cart ? All of your data will be permanently removed. This action cannot be undone.</p>
                                     </div>
                                 </div>
                             </div>

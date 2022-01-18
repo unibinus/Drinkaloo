@@ -32,15 +32,7 @@
       <li class="breadcrumb-item active divider-padding" aria-current="page">{{$gameDetail->name}}</li>
     </ol>
   </nav>
-    <div class="row">
-    <div class="col-8">
-        <div class="ratio ratio-16x9">
-            <video controls class="border-rad-10">
-                <source src="{{Storage::url($gameDetail->video)}}" type="video/webm">
-            </video>
-        </div>
-    </div>
-    <div class="col-4">
+    <div class="">
         <div class="row">
             <img src="{{Storage::url($gameDetail->picture)}}" class="border-rad-20" height="250px" alt="">
         </div>
@@ -52,7 +44,7 @@
         </div>
         <div class="my-2 row">
             <div class="d-flex">
-                <p class="m-0"><strong>Genre: </strong> {{$gameDetail->genre}} </p>
+                <p class="m-0"><strong>Category: </strong> {{$gameDetail->genre}} </p>
             </div>
         </div>
         <div class="my-2 row">
@@ -60,17 +52,6 @@
                 <p class="m-0"><strong>Release Date: </strong> {{date('F j, Y',strtotime($gameDetail->releaseDate))}}</p>
             </div>
         </div>
-        <div class="my-2 row">
-            <div class="d-flex">
-                <p class="m-0"><strong>Developer: </strong>{{$gameDetail->developer}}</p>
-            </div>
-        </div>
-        <div class="my-2 row">
-            <div class="d-flex">
-                <p class="m-0"><strong>Publisher: </strong>{{$gameDetail->publisher}}</p>
-            </div>
-        </div>
-    </div>
     </div>
     <div class="p-4 shadow fw-bold my-4 position-relative bg-light">
 

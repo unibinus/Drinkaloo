@@ -9,11 +9,6 @@
             </a>
         </p>
         <p>
-            <a href="/Friend" class="text-dark nav-link">
-                <i class="far fa-heart me-2 opacity-75 me-2"></i><strong  class="text-muted">Friends</strong>
-            </a>
-        </p>
-        <p>
             <a href="/TransactionHistory" class="text-dark nav-link" >
                 <i class="fas fa-history me-2"></i><strong>Transaction History</strong>
             </a>

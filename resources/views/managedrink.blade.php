@@ -11,18 +11,18 @@
 @endif
 
 <div class="container-fluid px-3">
-    <h1>Manage Games</h1>
-    <p class="fw-bold fs-5 mb-2">Filter by Games Name</p>
+    <h1>Manage Drink</h1>
+    <p class="fw-bold fs-5 mb-2">Filter by Drink Name</p>
     <form action="{{Route('FilterGame')}}" method="GET">
     <div class="input-group mb-2">
         <span class="fas fa-search input-group-text py-2 light-theme-form">
         </span>
         <div class="width-300">
-                <input class="form-control mr-sm-2 light-theme-form" name="search" type="search" placeholder="Game Name"
+                <input class="form-control mr-sm-2 light-theme-form" name="search" type="search" placeholder="Drink Name"
                 aria-label="Search">
             </div>
         </div>
-        <p class="fw-bold fs-5">Filter by Games Category</p>
+        <p class="fw-bold fs-5">Filter by Drink Category</p>
         <div class="container-fluid">
             <div class="row row-cols-auto">
                 <div class="col ps-0">
@@ -96,15 +96,15 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <p class="fw-bold fs-5 mb-1">Delete Games</p>
-                                    <p>Are you sure you want to delete this game? All of your data will be permanently removed from our servers forever. This action cannot be undone.</p>
+                                    <p class="fw-bold fs-5 mb-1">Delete Drink</p>
+                                    <p>Are you sure you want to delete this drink? All of your data will be permanently removed from our servers forever. This action cannot be undone.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end pb-4 pe-4">
                         <button type="button" class="btn btn-outline-dark mx-3" data-bs-dismiss="modal">Cancel</button>
-                        <form action="DeleteGame/{{$game["id"]}}" data-id="id" method="POST">
+                        <form action="DeleteDrink/{{$game["id"]}}" data-id="id" method="POST">
                             @method("DELETE")
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <ul class="list-group">
-                            <a href="/UpdateGame/{{$game["id"]}}" class="btn btn-light text-start my-1 border-rad-10">
+                            <a href="/UpdateDrink/{{$game["id"]}}" class="btn btn-light text-start my-1 border-rad-10">
                                 <i class="fas fa-pencil-alt me-2 icon-16"></i>Update</a>
                             <button class="btn btn-light text-start border-rad-10" data-bs-toggle="modal" data-bs-target="#deleteGame{{$game["id"]}}">
                                 <i class="fas fa-trash-alt me-2 icon-16"></i>Delete</button>

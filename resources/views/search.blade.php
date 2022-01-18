@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="p-2">
-    <h1>Search Games</h1>
+    <h1>Search Drinks</h1>
     @if (sizeOf($games) > 0)
     <div class="row row-cols-1 row-cols-md-4">
         @foreach ( $games as $game)
@@ -21,7 +21,7 @@
             @endforeach
         </div>
     @elseif (sizeOf($games) == 0)
-    <p>There are no games content can be showed right now</p>
+    <p>There are no drinks content can be showed right now</p>
     @endif
 </div>
 <div class="d-flex justify-content-end">

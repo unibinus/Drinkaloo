@@ -17,7 +17,7 @@
     </div>
     @endif
     <div class="p-2">
-        <h1>Top Games</h1>
+        <h1>Top Drinks</h1>
         @if (sizeOf($randomGames) > 0)
         <div class="row row-cols-1 row-cols-md-4">
             @foreach ( $randomGames as $game)
