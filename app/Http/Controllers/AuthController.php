@@ -59,7 +59,6 @@ class AuthController extends Controller
 
         $user->username = $request->username;
         $user->fullName = $request->fullName;
-        $user->level = 0;
         $user->role_id = $roleID;
         $user->password =  Hash::make($request->password);
         $user->profilePic = "public/images/pic1.jpg";

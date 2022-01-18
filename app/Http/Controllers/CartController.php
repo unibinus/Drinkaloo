@@ -9,27 +9,18 @@ use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {
-    //
     public function index(){
         $userSession = session('mySession','default');
         $userID = $userSession['id'];
         $d = new Drink();
         $c = new Cart();
-        //get cart
         $cart = $c->where('user_id','LIKE',$userID)->orderBy('drink_id', 'asc')->get();
         $drinks = $d->where('user_id','LIKE',$userID);
         $drinkIDs =[];
         for ($i=0; $i < sizeof($cart) ; $i++) {
-            //ambil id drink dari cart
             array_push($drinkIDs,$cart[$i]->drink_id);
         }
-        //get drink
         $drinks = $d->whereIn('id',$drinkIDs)->orderBy('id', 'asc')->get();
-        /**
-         * filter ke array yang isinya atau return 3 macam ini?
-         * drink, quantityCart, totalPrice,
-         */
-        // dd($cart);
         $data = [];
         $totalPrice = 0;
         for($i = 0; $i < sizeOf($drinks); $i++){
@@ -75,8 +66,6 @@ class CartController extends Controller
             $newEntryCart->user_id = $drinkExistInCart->user_id;
             $newEntryCart->drink_id = $drinkExistInCart->drink_id;
             $newEntryCart->quantity = $currQuantity;
-            // dd($drinkExistInCart,$drinkExistInCart->quantity,$currQuantity,$drink->quantity);
-
             $newEntryCart->save();
             return back()->with('Success','This drink has been added to your cart');
         }

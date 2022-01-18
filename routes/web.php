@@ -57,6 +57,6 @@ Route::post('/CreateDrink',[DrinkController::class,'createDrink'])->name('Create
 Route::get('/TransactionHistory', [TransactionController::class,'transactionHistory'])->middleware(['auth','member']);
 Route::get('/Cart', [CartController::class,'index'])->middleware(['auth','member']);
 Route::delete('/DeleteCart/{id}', [CartController::class,'deleteItemCart'])->middleware(['auth','member']);
-Route::get('/TransactionInformation', [TransactionController::class, 'transactionInformationIndex'])->middleware(['auth','member','valid.cart']);
+Route::get('/TransactionInformation', [TransactionController::class, 'transactionInformationIndex']);
 Route::post('/TransactionInformation/Detail', [TransactionController::class, 'transactionInformation'])->name('TransactionInformation')->middleware(['auth','member']);
 Route::get('/TransactionReceipt', [TransactionController::class, 'transactionReceiptIndex'])->middleware(['auth','member']);

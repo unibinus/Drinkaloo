@@ -49,9 +49,7 @@
     </div>
     <div class="p-4 shadow fw-bold my-4 position-relative bg-light">
 
-        {{-- Kalau admin atau member punya drinknya, maka hide add to cart--}}
         @if (Session::has('mySession'))
-            {{-- user logged in belum punya drink--}}
             <form action="AddToCart/{{$drinkDetail->id}}" method="POST">
                 {{ csrf_field() }}
                 <div class="position-absolute add-to-cart">

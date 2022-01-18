@@ -23,9 +23,7 @@
 </head>
 
 <body>
-
     @if (Auth::check())
-
     @if (Auth::user()->role_id == 2)
     {{-- Member --}}
     {{-- Update layout --}}
