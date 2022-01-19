@@ -2,18 +2,15 @@ body {
     color: #000;
     background-color: #FFF;
     font-family: 'Roboto', sans-serif;
-    overflow: hidden;
 }
 
 .sub-container-login {
     margin: 100pt;
-    padding-top: 100pt;
 }
 
 .sub-container-regis {
     margin: 100pt;
-    /* margin-top: 50pt; */
-    padding-top: 100pt;
+    margin-top: 50pt;
 }
 
 h1 {
