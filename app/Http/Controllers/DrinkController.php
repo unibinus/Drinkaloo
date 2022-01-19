@@ -160,7 +160,7 @@ class DrinkController extends Controller
         $g->description = $request->description;
         $g->price = $request->price;
         $g->quantity = $request->quantity;
-        $g->adultOnly = $request->adultChk ? 1 : 0;
+        $g->adultsOnly = $request->adultChk ? 1 : 0;
         $g->save();
         return redirect('/ManageDrink')->with('Success','Drink has been created successfully');
 
@@ -214,7 +214,7 @@ class DrinkController extends Controller
 
         $drink->description = $request->description;
         $drink->price = $request->price;
-        $drink->adultOnly = $drink->adultOnly;
+        // $drink->adultOnly = $drink->adultOnly;
         $drink->save();
         return redirect('/ManageDrink')->with('Success','Drink has been updated successfully');
 
