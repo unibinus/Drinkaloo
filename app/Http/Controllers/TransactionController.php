@@ -50,23 +50,7 @@ class TransactionController extends Controller
 
     public function transactionInformationIndex()
     {
-        $userSession = session('mySession', 'default');
-        $userID = $userSession['id'];
-        $cookieCart = Cookie::get($userID . 'cart');
-        $cart = json_decode($cookieCart);
-        $g = new Drink();
-        $drinkIDs = [];
-        for ($i = 0; $i < sizeof($cart); $i++) {
-            //ambil id drink dari cart
-            array_push($drinkIDs, $cart[$i]->drink_id);
-        }
-        // query
-        $drinks = $g->whereIn('id', $drinkIDs)->get();
-        $totalPrice = 0;
-        for ($i = 0; $i < sizeof($drinks); $i++) {
-            $totalPrice += $drinks[$i]->price *  $cart[$i]->quantity;
-        }
-        return view('transactionInformation', compact('totalPrice'));
+        return view('transactionInformation');
     }
 
     public function transactionInformation(Request $request)
@@ -158,20 +142,11 @@ class TransactionController extends Controller
             $td->save();
         }
 
-        // //add level user
-        // $user->level += sizeof($cart);
-        // $user->save();
-
-        //refresh session
         $attr = $user->getAttributes();
         $request->session()->put('mySession', $attr);
 
-        //clear cart
-        // dd("DELET",$drinkIDs,$user->id);
         $c->where('user_id', 'LIKE', $user->id)->whereIn('drink_id', $drinkIDs)->delete();
-        // $cart = [];
-        // $newCarts = json_encode($cart);
-        // Cookie::queue($user->id."cart",$newCarts,0);
+
         Session::put('transactionSession', $ht->id);
         return redirect('/TransactionReceipt');
     }
