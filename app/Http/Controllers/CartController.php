@@ -41,9 +41,6 @@ class CartController extends Controller
         $userID = $userSession['id'];
         $c = new Cart();
         $c->where('drink_id','LIKE',$drinkID)->where('user_id','LIKE',$userID)->delete();
-        $arrCarts = $c->where('user_id','LIKE',$userID)->get();
-        $newCarts = json_encode($arrCarts);
-        Cookie::queue($userID."cart",$newCarts,0);
         return back();
     }
     public function addToCart(Request $request, $id){
